@@ -141,6 +141,20 @@
   <ItemGroup>
     <ClCompile Include="SpotifyTB2.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Artista.h" />
+    <ClInclude Include="Cancion.h" />
+    <ClInclude Include="DesignUX.h" />
+    <ClInclude Include="Genero.h" />
+    <ClInclude Include="GestorArchivos.h" />
+    <ClInclude Include="ListaDoble.h" />
+    <ClInclude Include="ListaSimple.h" />
+    <ClInclude Include="Nodo.h" />
+    <ClInclude Include="NodoDoble.h" />
+    <ClInclude Include="Playlist.h" />
+    <ClInclude Include="Sistema.h" />
+    <ClInclude Include="Usuario.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

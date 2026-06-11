@@ -1,0 +1,60 @@
+1@Pop
+2@Dance Pop
+3@R&B
+4@Alternative R&B
+5@Bedroom R&B
+6@Neo Soul
+7@Soul
+8@Smooth Soul
+9@Quiet Storm
+10@Funk
+11@Hip Hop
+12@Rap
+13@Trap
+14@Pop Rap
+15@Emo Rap
+16@Cloud Rap
+17@Alternative Rap
+18@Jazz Rap
+19@Indie Pop
+20@Bedroom Pop
+21@Dream Pop
+22@Ambient Pop
+23@Psychedelic Pop
+24@Art Pop
+25@Folk Pop
+26@Indie Rock
+27@Alternative Rock
+28@Experimental Rock
+29@Shoegaze
+30@Surf Rock
+31@Soft Rock
+32@Classic Rock
+33@Hard Rock
+34@Grunge
+35@Latin Rock
+36@Rock En Espanol
+37@Pop Rock
+38@Metal
+39@Nu Metal
+40@Alternative Metal
+41@Thrash Metal
+42@Reggae
+43@Reggaeton
+44@Latin Trap
+45@Latin Pop
+46@Latin Alternative
+47@Balada Romantica
+48@Bolero
+49@Bachata
+50@Disco
+51@Electronic
+52@House
+53@UK Garage
+54@Lo-fi
+55@Jazz
+56@Jazz Pop
+57@Post Grunge
+58@Groove Metal
+59@Sludge Metal
+60@Folk Rock

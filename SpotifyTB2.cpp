@@ -1,6 +1,7 @@
-#include <iostream>
+#include "Sistema.h"
 
-int main()
-{
-    std::cout << "Hello World!\n";
+int main() {
+    Sistema spotify;
+    spotify.ejecutar();
+    return 0;
 }
