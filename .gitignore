@@ -1,8 +1,12 @@
 .vs/
+.codex/
+
 x64/
 x86/
 Debug/
+debug/
 Release/
+release/
 bin/
 obj/
 
