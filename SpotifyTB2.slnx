@@ -1,0 +1,7 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="SpotifyTB2.vcxproj" Id="05655ddd-eb90-470a-9e08-f8931278a1b7" />
+</Solution>
