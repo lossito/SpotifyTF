@@ -200,11 +200,11 @@ private:
         while (opc != '6' && usuarioActual != nullptr) {
             establecerColor(10);
             system("cls");
-            ui.marco2();
+            //ui.marco2();
 
             establecerColor(14);
-            moverCursor(15, 11);
-            std::cout << " " << usuarioActual->getNombre() << "!\n\n";
+            //moverCursor(15, 11);
+            //std::cout << " " << usuarioActual->getNombre() << "!\n\n";
 
             opc = _getch();
             switch (opc) {
@@ -218,8 +218,10 @@ private:
                 break;
             case '5': 
                 break;
-            case '6': 
+            case '6': {
+
                 break;
+            }
             default: {
                 moverCursor(2, 26);
                 establecerColor(12);
