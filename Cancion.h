@@ -3,6 +3,7 @@
 #include <string>
 #include <iomanip>
 #include "ListaSimple.h"
+#include "DesignUX.h"
 
 class Cancion {
 private:
@@ -27,9 +28,7 @@ public:
     void incrementarReproducciones() { reproducciones++; };
 
     void imprimirInfo() {
-        std::cout << std::left << std::setw(5) << id << std::setw(20) << nombre << std::setw(12) << artistaId << std::setw(8) << reproducciones;
+        std::cout << std::left << std::setw(5) << id << std::setw(30) << acortar(nombre, 29) << std::setw(12) << artistaId << std::setw(8) << reproducciones;
         std::cout << "Generos: ";
-        generosId.recorrer([](int& g) { std::cout << g << " "; });
-        std::cout << std::endl;
     }
 };

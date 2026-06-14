@@ -49,6 +49,11 @@ void usarColor(short colorIndex) {
     SetConsoleTextAttribute(hConsole, colorIndex);
 }
 
+std::string acortar(std::string texto, int cantidadAcortar) {
+    if (texto.size() <= cantidadAcortar) { return texto; }
+    return texto.substr(0, cantidadAcortar - 3) + "...";
+}
+
 class DesignUX
 {
 public:

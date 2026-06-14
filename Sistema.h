@@ -121,8 +121,7 @@ private:
         establecerColor(8);  std::cout << "  |  ";
         establecerColor(14); std::cout << "Username ";
         establecerColor(8);  std::cout << "|  >> ";
-        establecerColor(7);
-        std::cin >> username;
+        establecerColor(7); std::cin >> username;
         if (existeUsername(username)) {
             establecerColor(8);
             std::cout << "  +--------------------------------------------------+\n\n";
@@ -183,7 +182,7 @@ private:
             opc = _getch();
             switch (opc) {
             case '1': {
-                imprimirCanciones(catalogoNombre);
+                alternarOrdenCanciones();
                 break;
             }
             case '2': 
@@ -209,30 +208,71 @@ private:
         }
     }
 
-    void imprimirCanciones(ArbolBinario<Cancion*>& catalogo) {
-        system("cls");
-        int contador = 0, paginaActual = 0, rangoMaximo = 10, rangoMinimo = 0;
-        char tecla = ' '; bool funcionar = true;
-        while(funcionar) {
-            contador = 0;
+    void alternarOrdenCanciones() {
+        char tecla = ' '; int contadorImprimir = 0;
+        while (tecla != 'Q' && tecla != 'q')
+        {
+            if (tecla == 'E' || tecla == 'e') { contadorImprimir++; }
+            if (contadorImprimir > 2) { contadorImprimir = 0; }
+            switch (contadorImprimir)
+            {
+            case 0: {
+                system("cls");
+                tecla = imprimirCanciones(catalogoNombre);
+                break;
+            }
+            case 1: {
+                system("cls");
+                tecla = imprimirCanciones(catalogoID);
+                break;
+            }
+            case 2: {
+                system("cls");
+                tecla = imprimirCanciones(catalogoReproducciones);
+                break;
+            }
+            default:
+                break;
+            }
+        }
+    }
+
+    char imprimirCanciones(ArbolBinario<Cancion*>& catalogo) {
+        int contador = 0, paginaActual = 0, rangoMaximo = 10, rangoMinimo = 0; char tecla = ' '; 
+        while(true) {
+            contador = 0; system("cls");
             catalogo.enOrden([&](Cancion* aux) {
-                if (contador >= rangoMinimo && contador < rangoMaximo) { aux->imprimirInfo(); }
+                if (contador >= rangoMinimo && contador < rangoMaximo) {
+                    aux->imprimirInfo(); ListaSimple<int>& temp = aux->getGenerosId(); bool first = true;
+                    temp.recorrer([&](int id) { if (first != true) { std::cout << ", "; }
+                    std::cout << devolverNombreGenero(id); first = false;
+                        });
+                    std::cout << std::endl;
+                }
                 contador++;
                 });
+            std::cout << std::string(80, '-') << std::endl;
+            std::cout << std::endl << "   [A] Anterior   [D] Siguiente   [E] Cambiar Orden   [Q] Salir";
             tecla = _getch();
-            if (tecla == 'D' || tecla == 'd' && contador >= rangoMaximo) {
+            if (tecla == 'D' || tecla == 'd') {
+                if (contador <= rangoMaximo) continue;
                 paginaActual++;
                 rangoMinimo += 10; rangoMaximo += 10;
                 system("cls");
             }
-            if (tecla == 'A' || tecla == 'a' && contador >= rangoMaximo) {
+            else if (tecla == 'A' || tecla == 'a') {
+                if (paginaActual <= 0) continue;
                 paginaActual--;
                 rangoMinimo -= 10; rangoMaximo -= 10;
                 system("cls");
             }
-            if (tecla == 'Q' || tecla == 'q') {
-                funcionar = false;
+            else if (tecla == 'Q' || tecla == 'q') {
                 system("cls");
+                return tecla;
+            }
+            else if (tecla == 'E' || tecla == 'e') {
+                system("cls");
+                return tecla;
             }
         }
     }
@@ -295,6 +335,12 @@ private:
         int max = 0;
         lista.recorrer([&max](T* item) { if (item->getId() > max) max = item->getId(); });
         return max + 1;
+    }
+
+    std::string devolverNombreGenero(int id) {
+        std::string nombre = "Desconocido";
+        generos.recorrer([&nombre, &id](Genero* genero) { if (genero->getId() == id) nombre = genero->getNombre(); });
+        return nombre;
     }
 public:
     Sistema() : usuarioActual(nullptr) {
