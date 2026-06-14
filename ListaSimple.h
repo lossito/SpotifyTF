@@ -3,7 +3,7 @@
 #include <iostream>
 #include <functional>
 
-template <class T>
+template <typename T>
 class ListaSimple {
 private:
     Nodo<T>* ini;

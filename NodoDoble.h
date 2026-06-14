@@ -1,5 +1,5 @@
 #pragma once
-template <class T>
+template <typename T>
 class NodoDoble {
 public:
     T dato;

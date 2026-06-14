@@ -4,6 +4,7 @@
 #include <ctime>
 #include "GestorArchivos.h"
 #include "DesignUX.h"
+#include "ArbolBinario.h"
 #include "Playlist.h"
 
 class Sistema {
@@ -11,11 +12,14 @@ private:
     Usuario* usuarioActual;
     GestorArchivos fm;
     DesignUX ui;
-    ListaDoble<Cancion*> canciones;
+    ListaSimple<Cancion*> canciones;
     ListaSimple<Artista*> artistas;
     ListaSimple<Genero*>  generos;
     ListaSimple<Usuario*> usuarios;
     ListaSimple<Playlist*> playlists;
+    ArbolBinario<Cancion*> catalogoNombre;
+    ArbolBinario<Cancion*> catalogoID;
+    ArbolBinario<Cancion*> catalogoReproducciones;
 
     void cargarDatos() {
         fm.cargarCancion("archivos/canciones.txt", canciones);
@@ -67,14 +71,12 @@ private:
         std::cin >> pass;
         establecerColor(8);
         std::cout << "  +--------------------------------------------------+\n\n";
-
         Usuario* encontrado = nullptr;
         usuarios.recorrer([&encontrado, &user, &pass](Usuario*& u) {
             if (u->validarCredenciales(user, pass)) {
                 encontrado = u;
             }
             });
-
         if (encontrado != nullptr) {
             usuarioActual = encontrado;
             establecerColor(14);
@@ -113,7 +115,6 @@ private:
         (void)_getch();
         system("cls");
         std::string nombre, username, password;
-
         ui.marcoRegistro();
         std::cin.ignore();
         std::getline(std::cin, nombre);
@@ -122,7 +123,6 @@ private:
         establecerColor(8);  std::cout << "|  >> ";
         establecerColor(7);
         std::cin >> username;
-
         if (existeUsername(username)) {
             establecerColor(8);
             std::cout << "  +--------------------------------------------------+\n\n";
@@ -133,7 +133,6 @@ private:
             (void)_getch();
             return;
         }
-
         establecerColor(8);  std::cout << "  |  ";
         establecerColor(14); std::cout << "Password ";
         establecerColor(8);  std::cout << "|  >> ";
@@ -141,7 +140,6 @@ private:
         std::cin >> password;
         establecerColor(8);
         std::cout << "  +--------------------------------------------------+\n\n";
-
         system("cls");
         mostrarGenerosDisponibles();
         establecerColor(14);
@@ -152,32 +150,9 @@ private:
         establecerColor(7);
         std::string generosInput;
         std::cin >> generosInput;
-
         int nuevoId = generarNuevoId<Usuario>(usuarios);
         Usuario* nuevoUsuario = new Usuario(nuevoId, nombre, username, password);
-        std::string tempGenero = "";
-        int generosAgregados = 0;
-        for (int i = 0; i < generosInput.length(); i++) {
-            if (generosInput[i] == ',') {
-                int genId = stoi(tempGenero);
-                if (existeGenero(genId)) {
-                    nuevoUsuario->agregarGenero(genId);
-                    generosAgregados++;
-                }
-                tempGenero = "";
-            }
-            else {
-                tempGenero += generosInput[i];
-            }
-        }
-        if (!tempGenero.empty()) {
-            int genId = stoi(tempGenero);
-            if (existeGenero(genId)) {
-                nuevoUsuario->agregarGenero(genId);
-                generosAgregados++;
-            }
-        }
-
+        int generosAgregados = agregarGenerosValidos(generosInput, nuevoUsuario);
         system("cls");
         if (generosAgregados == 0) {
             establecerColor(12);
@@ -188,7 +163,6 @@ private:
             (void)_getch();
             return;
         }
-
         usuarios.anadirItem(nuevoUsuario);
         fm.guardarUsuario("archivos/usuarios.txt", nuevoUsuario);
         ui.marcoRegistroExito();
@@ -201,15 +175,17 @@ private:
             establecerColor(10);
             system("cls");
             //ui.marco2();
-
             establecerColor(14);
             //moverCursor(15, 11);
             //std::cout << " " << usuarioActual->getNombre() << "!\n\n";
-
+            std::cout << "---SPOTIFY TB2---" << std::endl; //menu temporal
+            std::cout << "1. Ver catalogo musical" << std::endl;
             opc = _getch();
             switch (opc) {
-            case '1': 
+            case '1': {
+                imprimirCanciones(catalogoNombre);
                 break;
+            }
             case '2': 
                 break;
             case '3': 
@@ -233,6 +209,34 @@ private:
         }
     }
 
+    void imprimirCanciones(ArbolBinario<Cancion*>& catalogo) {
+        system("cls");
+        int contador = 0, paginaActual = 0, rangoMaximo = 10, rangoMinimo = 0;
+        char tecla = ' '; bool funcionar = true;
+        while(funcionar) {
+            contador = 0;
+            catalogo.enOrden([&](Cancion* aux) {
+                if (contador >= rangoMinimo && contador < rangoMaximo) { aux->imprimirInfo(); }
+                contador++;
+                });
+            tecla = _getch();
+            if (tecla == 'D' || tecla == 'd' && contador >= rangoMaximo) {
+                paginaActual++;
+                rangoMinimo += 10; rangoMaximo += 10;
+                system("cls");
+            }
+            if (tecla == 'A' || tecla == 'a' && contador >= rangoMaximo) {
+                paginaActual--;
+                rangoMinimo -= 10; rangoMaximo -= 10;
+                system("cls");
+            }
+            if (tecla == 'Q' || tecla == 'q') {
+                funcionar = false;
+                system("cls");
+            }
+        }
+    }
+
     void mostrarGenerosDisponibles() {
         establecerColor(10);
         std::cout << "  +-----------------------------------+\n";
@@ -252,6 +256,32 @@ private:
         establecerColor(7);
     }
 
+    int agregarGenerosValidos(std::string generosInput, Usuario* nuevoUsuario) {
+        std::string tempGenero = ""; int generosAgregados = 0;
+        for (int i = 0; i < generosInput.length(); i++) {
+            if (generosInput[i] == ',') {
+                if (tempGenero != "") { int genId = stoi(tempGenero); 
+                if (existeGenero(genId)) {
+                    nuevoUsuario->agregarGenero(genId);
+                    generosAgregados++;
+                }
+            }
+                tempGenero = "";
+            }
+            else {
+                tempGenero += generosInput[i];
+            }
+        }
+        if (!tempGenero.empty()) {
+            int genId = stoi(tempGenero);
+            if (existeGenero(genId)) {
+                nuevoUsuario->agregarGenero(genId);
+                generosAgregados++;
+            }
+        }
+        return generosAgregados;
+    }
+
     bool existeUsername(std::string username) {
         return usuarios.existeNodo([&](Usuario* u) { return u->getUsername() == username; });
     }
@@ -267,11 +297,26 @@ private:
         return max + 1;
     }
 public:
-    Sistema() : usuarioActual(nullptr) {};
+    Sistema() : usuarioActual(nullptr) {
+        catalogoNombre = ArbolBinario<Cancion*>([](Cancion* a, Cancion* b) {
+            return a->getNombre() < b->getNombre();
+            });
+        catalogoID = ArbolBinario<Cancion*>([](Cancion* a, Cancion* b) {
+            return a->getId() < b->getId();
+            });
+        catalogoReproducciones = ArbolBinario<Cancion*>([](Cancion* a, Cancion* b) {
+            return a->getReproducciones() > b->getReproducciones();
+            });
+    };
     void ejecutar() {
         configurarVentana();
         srand(time(NULL));
         cargarDatos();
+        canciones.recorrer([&](Cancion* aux) {
+            catalogoNombre.insertar(aux);
+            catalogoID.insertar(aux);
+            catalogoReproducciones.insertar(aux);
+            });
         preLogin();
     }
 };

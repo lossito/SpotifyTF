@@ -3,7 +3,7 @@
 #include <iostream>
 #include <functional>
 
-template <class T>
+template <typename T>
 class ListaDoble {
 private:
     NodoDoble<T>* ini;

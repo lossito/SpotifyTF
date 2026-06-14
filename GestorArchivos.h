@@ -12,7 +12,7 @@
 class GestorArchivos {
 public:
     GestorArchivos() {};
-    void cargarCancion(std::string filePath, ListaDoble<Cancion*>& lista) {
+    void cargarCancion(std::string filePath, ListaSimple<Cancion*>& lista) {
         std::ifstream file(filePath);
         std::string line;
         if (!file) {
@@ -58,7 +58,7 @@ public:
         }
         file.close();
     };
-    void guardarCanciones(std::string filePath, ListaDoble<Cancion*>& lista) {
+    void guardarCanciones(std::string filePath, ListaSimple<Cancion*>& lista) {
         std::ofstream file(filePath);
         if (!file) {
             std::cout << "Error de archivo" << std::endl;
@@ -198,7 +198,7 @@ public:
         file << "\n";
         file.close();
     }
-    void cargarPlaylist(std::string filePath, ListaSimple<Playlist*>& lista, ListaDoble<Cancion*>& catalogo) {
+    void cargarPlaylist(std::string filePath, ListaSimple<Playlist*>& lista, ListaSimple<Cancion*>& catalogo) {
         std::ifstream file(filePath);
         std::string line;
         if (!file) {
