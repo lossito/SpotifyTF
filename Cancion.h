@@ -27,8 +27,7 @@ public:
     void agregarGenero(int generoId) { generosId.anadirItem(generoId); };
     void incrementarReproducciones() { reproducciones++; };
 
-    void imprimirInfo() {
-        std::cout << std::left << std::setw(5) << id << std::setw(30) << acortar(nombre, 29) << std::setw(12) << artistaId << std::setw(8) << reproducciones;
-        std::cout << "Generos: ";
+    void imprimirInfo(std::string nombreArtista) {
+        std::cout << std::left << std::setw(5) << id << std::setw(30) << acortar(nombre, 29) << std::setw(18) << acortar(nombreArtista, 17) << std::setw(8) << reproducciones;
     }
 };

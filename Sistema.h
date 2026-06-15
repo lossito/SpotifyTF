@@ -218,17 +218,17 @@ private:
             {
             case 0: {
                 system("cls");
-                tecla = imprimirCanciones(catalogoNombre);
+                tecla = imprimirCanciones(catalogoNombre, "Nombre");
                 break;
             }
             case 1: {
                 system("cls");
-                tecla = imprimirCanciones(catalogoID);
+                tecla = imprimirCanciones(catalogoID, "ID");
                 break;
             }
             case 2: {
                 system("cls");
-                tecla = imprimirCanciones(catalogoReproducciones);
+                tecla = imprimirCanciones(catalogoReproducciones, "Reproducciones");
                 break;
             }
             default:
@@ -237,13 +237,15 @@ private:
         }
     }
 
-    char imprimirCanciones(ArbolBinario<Cancion*>& catalogo) {
+    char imprimirCanciones(ArbolBinario<Cancion*>& catalogo, std::string tipoOrden) {
         int contador = 0, paginaActual = 0, rangoMaximo = 10, rangoMinimo = 0; char tecla = ' '; 
         while(true) {
             contador = 0; system("cls");
+            establecerColor(14); std::cout << std::left << std::setw(5) << "ID" << std::setw(30) << "NOMBRE" << std::setw(18) << "ARTISTA" << std::setw(8) << "REP" << "GENEROS" << std::endl;
+            establecerColor(1); std::cout << std::string(80, '-') << std::endl;
             catalogo.enOrden([&](Cancion* aux) {
                 if (contador >= rangoMinimo && contador < rangoMaximo) {
-                    aux->imprimirInfo(); ListaSimple<int>& temp = aux->getGenerosId(); bool first = true;
+                    aux->imprimirInfo(devolverNombreArtista(aux->getArtistaId())); ListaSimple<int>& temp = aux->getGenerosId(); bool first = true;
                     temp.recorrer([&](int id) { if (first != true) { std::cout << ", "; }
                     std::cout << devolverNombreGenero(id); first = false;
                         });
@@ -251,8 +253,9 @@ private:
                 }
                 contador++;
                 });
-            std::cout << std::string(80, '-') << std::endl;
-            std::cout << std::endl << "   [A] Anterior   [D] Siguiente   [E] Cambiar Orden   [Q] Salir";
+            std::cout << std::string(80, '-') << std::endl; 
+            establecerColor(11); std::cout << "   [A] Anterior   [D] Siguiente   [E] Cambiar Orden";
+            establecerColor(12); std::cout << "   [Q] Cancelar\n\n"; establecerColor(14); std::cout << "   Tipo de Orden: " << tipoOrden;
             tecla = _getch();
             if (tecla == 'D' || tecla == 'd') {
                 if (contador <= rangoMaximo) continue;
@@ -340,6 +343,12 @@ private:
     std::string devolverNombreGenero(int id) {
         std::string nombre = "Desconocido";
         generos.recorrer([&nombre, &id](Genero* genero) { if (genero->getId() == id) nombre = genero->getNombre(); });
+        return nombre;
+    }
+
+    std::string devolverNombreArtista(int id) {
+        std::string nombre = "Desconocido";
+        artistas.recorrer([&nombre, &id](Artista* artista) { if (artista->getId() == id) nombre = artista->getNombre(); });
         return nombre;
     }
 public:
