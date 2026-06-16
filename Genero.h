@@ -9,9 +9,7 @@ private:
     std::string nombre;
 
 public:
-    Genero(int id, std::string nombre)
-        : id(id), nombre(nombre) {
-    };
+    Genero(int id, std::string nombre) : id(id), nombre(nombre) {};
 
     int getId() { return id; };
     std::string getNombre() { return nombre; };

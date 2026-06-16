@@ -2,7 +2,7 @@
 #include <iostream>
 #include <string>
 #include <iomanip>
-#include "ListaDoble.h"
+#include "ListaSimple.h"
 #include "Cancion.h"
 
 class Playlist {
@@ -11,7 +11,7 @@ private:
     std::string nombre;
     int usuarioId;
     bool esAutomatica;
-    ListaDoble<Cancion*> canciones;
+    ListaSimple<Cancion*> canciones;
 
 public:
     Playlist(int id, std::string nombre, int usuarioId, bool esAutomatica = false) : id(id), nombre(nombre), usuarioId(usuarioId), esAutomatica(esAutomatica) {};
@@ -20,7 +20,7 @@ public:
     std::string getNombre() { return nombre; };
     int getUsuarioId() { return usuarioId; };
     bool getEsAutomatica() { return esAutomatica; };
-    ListaDoble<Cancion*>& getCanciones() { return canciones; };
+    ListaSimple<Cancion*>& getCanciones() { return canciones; };
 
     void setNombre(std::string nuevoNombre) { nombre = nuevoNombre; };
 

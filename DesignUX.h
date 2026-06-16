@@ -270,7 +270,7 @@ public:
         establecerColor(8);
         std::cout << "  +----+------------------------+-------------+-----------+\n";
         establecerColor(14);
-        std::cout << "  | ID | Nombre                 | Tipo        | Canciones |\n";
+        std::cout << "  | Id | Nombre                 | Tipo        | Canciones |\n";
         establecerColor(8);
         std::cout << "  +----+------------------------+-------------+-----------+\n";
         establecerColor(7);

@@ -5,6 +5,7 @@
 #include "GestorArchivos.h"
 #include "DesignUX.h"
 #include "ArbolBinario.h"
+#include "TablaHash.h"
 #include "Playlist.h"
 
 class Sistema {
@@ -18,8 +19,9 @@ private:
     ListaSimple<Usuario*> usuarios;
     ListaSimple<Playlist*> playlists;
     ArbolBinario<Cancion*> catalogoNombre;
-    ArbolBinario<Cancion*> catalogoID;
+    ArbolBinario<Cancion*> catalogoId;
     ArbolBinario<Cancion*> catalogoReproducciones;
+    TablaHash<Cancion*, int> busquedasId;
 
     void cargarDatos() {
         fm.cargarCancion("archivos/canciones.txt", canciones);
@@ -142,7 +144,7 @@ private:
         system("cls");
         mostrarGenerosDisponibles();
         establecerColor(14);
-        std::cout << "\n  Ingresa los IDs separados por coma ";
+        std::cout << "\n  Ingresa los Ids separados por coma ";
         std::cout << "(ej: 1,2,3)";
         establecerColor(8);
         std::cout << ": ";
@@ -179,19 +181,29 @@ private:
             //std::cout << " " << usuarioActual->getNombre() << "!\n\n";
             std::cout << "---SPOTIFY TB2---" << std::endl; //menu temporal
             std::cout << "1. Ver catalogo musical" << std::endl;
+            std::cout << "2. Realizar busquedas" << std::endl;
+            std::cout << "6. Cerrar sesion" << std::endl;
             opc = _getch();
             switch (opc) {
             case '1': {
                 alternarOrdenCanciones();
                 break;
             }
-            case '2': 
+            case '2': {
+                //esto es temporal, solo para probar si funciona
+                int id = 0; std::cout << "ingrese el Id de la cancion que desea buscar: "; std::cin >> id;
+                std::cout << "\n---CANCION EN LA POSICION " << id << "---" << std::endl;
+                Cancion* aux = busquedasId.buscar(id); aux->imprimirInfo(devolverNombreArtista(aux->getArtistaId())); ListaSimple<int>& temp = aux->getGenerosId(); bool first = true;
+                temp.recorrer([&](int id) { if (first != true) { std::cout << ", "; }
+                std::cout << devolverNombreGenero(id); first = false; });
+                (void)_getch();
                 break;
-            case '3': 
+            }
+            case '3':
                 break;
-            case '4': 
+            case '4':
                 break;
-            case '5': 
+            case '5':
                 break;
             case '6': {
 
@@ -223,7 +235,7 @@ private:
             }
             case 1: {
                 system("cls");
-                tecla = imprimirCanciones(catalogoID, "ID");
+                tecla = imprimirCanciones(catalogoId, "Id");
                 break;
             }
             case 2: {
@@ -238,10 +250,10 @@ private:
     }
 
     char imprimirCanciones(ArbolBinario<Cancion*>& catalogo, std::string tipoOrden) {
-        int contador = 0, paginaActual = 0, rangoMaximo = 10, rangoMinimo = 0; char tecla = ' '; 
-        while(true) {
+        int contador = 0, paginaActual = 0, rangoMaximo = 10, rangoMinimo = 0; char tecla = ' ';
+        while (true) {
             contador = 0; system("cls");
-            establecerColor(14); std::cout << std::left << std::setw(5) << "ID" << std::setw(30) << "NOMBRE" << std::setw(18) << "ARTISTA" << std::setw(8) << "REP" << "GENEROS" << std::endl;
+            establecerColor(14); std::cout << std::left << std::setw(5) << "Id" << std::setw(30) << "NOMBRE" << std::setw(18) << "ARTISTA" << std::setw(8) << "REP" << "GENEROS" << std::endl;
             establecerColor(1); std::cout << std::string(80, '-') << std::endl;
             catalogo.enOrden([&](Cancion* aux) {
                 if (contador >= rangoMinimo && contador < rangoMaximo) {
@@ -253,7 +265,7 @@ private:
                 }
                 contador++;
                 });
-            std::cout << std::string(80, '-') << std::endl; 
+            std::cout << std::string(80, '-') << std::endl;
             establecerColor(11); std::cout << "   [A] Anterior   [D] Siguiente   [E] Cambiar Orden";
             establecerColor(12); std::cout << "   [Q] Cancelar\n\n"; establecerColor(14); std::cout << "   Tipo de Orden: " << tipoOrden;
             tecla = _getch();
@@ -303,12 +315,13 @@ private:
         std::string tempGenero = ""; int generosAgregados = 0;
         for (int i = 0; i < generosInput.length(); i++) {
             if (generosInput[i] == ',') {
-                if (tempGenero != "") { int genId = stoi(tempGenero); 
-                if (existeGenero(genId)) {
-                    nuevoUsuario->agregarGenero(genId);
-                    generosAgregados++;
+                if (tempGenero != "") {
+                    int genId = stoi(tempGenero);
+                    if (existeGenero(genId)) {
+                        nuevoUsuario->agregarGenero(genId);
+                        generosAgregados++;
+                    }
                 }
-            }
                 tempGenero = "";
             }
             else {
@@ -352,25 +365,27 @@ private:
         return nombre;
     }
 public:
-    Sistema() : usuarioActual(nullptr) {
+    Sistema() : usuarioActual(nullptr), busquedasId(101, [](int clave) { return clave; }) {
         catalogoNombre = ArbolBinario<Cancion*>([](Cancion* a, Cancion* b) {
             return a->getNombre() < b->getNombre();
             });
-        catalogoID = ArbolBinario<Cancion*>([](Cancion* a, Cancion* b) {
+        catalogoId = ArbolBinario<Cancion*>([](Cancion* a, Cancion* b) {
             return a->getId() < b->getId();
             });
         catalogoReproducciones = ArbolBinario<Cancion*>([](Cancion* a, Cancion* b) {
             return a->getReproducciones() > b->getReproducciones();
             });
     };
+
     void ejecutar() {
         configurarVentana();
         srand(time(NULL));
         cargarDatos();
         canciones.recorrer([&](Cancion* aux) {
             catalogoNombre.insertar(aux);
-            catalogoID.insertar(aux);
+            catalogoId.insertar(aux);
             catalogoReproducciones.insertar(aux);
+            busquedasId.insertar(aux, aux->getId());
             });
         preLogin();
     }

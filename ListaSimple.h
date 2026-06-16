@@ -2,7 +2,6 @@
 #include "Nodo.h"
 #include <iostream>
 #include <functional>
-
 template <typename T>
 class ListaSimple {
 private:
@@ -10,10 +9,7 @@ private:
     unsigned int lon;
 
 public:
-    ListaSimple() {
-        ini = nullptr;
-        lon = 0;
-    };
+    ListaSimple(Nodo<T>* inicio = nullptr) : ini(inicio), lon(0) {};
 
     ~ListaSimple() {
         Nodo<T>* aux = ini;
