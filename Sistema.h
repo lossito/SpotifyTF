@@ -22,6 +22,8 @@ private:
     ArbolBinario<Cancion*> catalogoId;
     ArbolBinario<Cancion*> catalogoReproducciones;
     TablaHash<Cancion*, int> busquedasId;
+    //TablaHash<Cancion*, std::string> busquedasArtista;
+    //TablaHash<Cancion*, std::string> busquedasNombre;
 
     void cargarDatos() {
         fm.cargarCancion("archivos/canciones.txt", canciones);
@@ -190,13 +192,7 @@ private:
                 break;
             }
             case '2': {
-                //esto es temporal, solo para probar si funciona
-                int id = 0; std::cout << "ingrese el Id de la cancion que desea buscar: "; std::cin >> id;
-                std::cout << "\n---CANCION EN LA POSICION " << id << "---" << std::endl;
-                Cancion* aux = busquedasId.buscar(id); aux->imprimirInfo(devolverNombreArtista(aux->getArtistaId())); ListaSimple<int>& temp = aux->getGenerosId(); bool first = true;
-                temp.recorrer([&](int id) { if (first != true) { std::cout << ", "; }
-                std::cout << devolverNombreGenero(id); first = false; });
-                (void)_getch();
+                realizarBusqueda();
                 break;
             }
             case '3':
@@ -230,17 +226,17 @@ private:
             {
             case 0: {
                 system("cls");
-                tecla = imprimirCanciones(catalogoNombre, "Nombre");
+                tecla = catalogoCanciones(catalogoNombre, "Nombre");
                 break;
             }
             case 1: {
                 system("cls");
-                tecla = imprimirCanciones(catalogoId, "Id");
+                tecla = catalogoCanciones(catalogoId, "Id");
                 break;
             }
             case 2: {
                 system("cls");
-                tecla = imprimirCanciones(catalogoReproducciones, "Reproducciones");
+                tecla = catalogoCanciones(catalogoReproducciones, "Reproducciones");
                 break;
             }
             default:
@@ -249,11 +245,11 @@ private:
         }
     }
 
-    char imprimirCanciones(ArbolBinario<Cancion*>& catalogo, std::string tipoOrden) {
+    char catalogoCanciones(ArbolBinario<Cancion*>& catalogo, std::string tipoOrden) {
         int contador = 0, paginaActual = 0, rangoMaximo = 10, rangoMinimo = 0; char tecla = ' ';
         while (true) {
             contador = 0; system("cls");
-            establecerColor(14); std::cout << std::left << std::setw(5) << "Id" << std::setw(30) << "NOMBRE" << std::setw(18) << "ARTISTA" << std::setw(8) << "REP" << "GENEROS" << std::endl;
+            establecerColor(14); std::cout << std::left << std::setw(5) << "ID" << std::setw(30) << "NOMBRE" << std::setw(18) << "ARTISTA" << std::setw(8) << "REP" << "GENEROS" << std::endl;
             establecerColor(1); std::cout << std::string(80, '-') << std::endl;
             catalogo.enOrden([&](Cancion* aux) {
                 if (contador >= rangoMinimo && contador < rangoMaximo) {
@@ -281,13 +277,89 @@ private:
                 rangoMinimo -= 10; rangoMaximo -= 10;
                 system("cls");
             }
-            else if (tecla == 'Q' || tecla == 'q') {
+            else if (tecla == 'Q' || tecla == 'q' || tecla == 'E' || tecla == 'e') {
                 system("cls");
                 return tecla;
             }
-            else if (tecla == 'E' || tecla == 'e') {
+        }
+    }
+
+    char catalogoSinCambio(ArbolBinario<Cancion*>& catalogo) {
+        int contador = 0, paginaActual = 0, rangoMaximo = 10, rangoMinimo = 0; char tecla = ' ';
+        while (true) {
+            contador = 0; system("cls");
+            establecerColor(14); std::cout << std::left << std::setw(5) << "Id" << std::setw(30) << "NOMBRE" << std::setw(18) << "ARTISTA" << std::setw(8) << "REP" << "GENEROS" << std::endl;
+            establecerColor(1); std::cout << std::string(80, '-') << std::endl;
+            catalogo.enOrden([&](Cancion* aux) {
+                if (contador >= rangoMinimo && contador < rangoMaximo) {
+                    aux->imprimirInfo(devolverNombreArtista(aux->getArtistaId())); ListaSimple<int>& temp = aux->getGenerosId(); bool first = true;
+                    temp.recorrer([&](int id) { if (first != true) { std::cout << ", "; }
+                    std::cout << devolverNombreGenero(id); first = false;
+                        });
+                    std::cout << std::endl;
+                }
+                contador++;
+                });
+            std::cout << std::string(80, '-') << std::endl;
+            establecerColor(11); std::cout << "   [A] Anterior   [D] Siguiente";
+            establecerColor(12); std::cout << "   [Q] Cancelar\n\n"; establecerColor(14);
+            std::cout << "  +-------REALIZAR BUSQUEDA-------+\n";
+            std::cout << "  1. Realizar busqueda por Id\n";
+            std::cout << "  2. Realizar busqueda por Artista\n";
+            std::cout << "  3. Realizar busqueda por Nombre\n";
+            tecla = _getch();
+            if (tecla == 'D' || tecla == 'd') {
+                if (contador <= rangoMaximo) continue;
+                paginaActual++;
+                rangoMinimo += 10; rangoMaximo += 10;
+                system("cls");
+            }
+            else if (tecla == 'A' || tecla == 'a') {
+                if (paginaActual <= 0) continue;
+                paginaActual--;
+                rangoMinimo -= 10; rangoMaximo -= 10;
+                system("cls");
+            }
+            else if (tecla == 'Q' || tecla == 'q' || tecla == '1' || tecla == '2' || tecla == '3') {
                 system("cls");
                 return tecla;
+            }
+        }
+    }
+    
+    void realizarBusqueda() {
+        char tecla = ' ';
+        while (tecla != 'Q' && tecla != 'q')
+        {
+            tecla = catalogoSinCambio(catalogoId);
+            switch (tecla)
+            {
+            case '1': {
+                int id = 0; std::cout << "ingrese el Id de la cancion que desea buscar: "; std::cin >> id;
+                establecerColor(14); std::cout << std::endl << std::left << std::setw(5) << "ID" << std::setw(30) << "NOMBRE" << std::setw(18) << "ARTISTA" << std::setw(8) << "REP" << "GENEROS" << std::endl;
+                establecerColor(1); std::cout << std::string(80, '-') << std::endl;
+                Cancion* aux = busquedasId.buscar(id);
+                if (aux != nullptr) {
+                    aux->imprimirInfo(devolverNombreArtista(aux->getArtistaId())); ListaSimple<int>& temp = aux->getGenerosId(); bool first = true;
+                    temp.recorrer([&](int id) { if (first != true) { std::cout << ", "; }
+                    std::cout << devolverNombreGenero(id); first = false; });
+                }
+                else { establecerColor(12); std::cout << "No se encontro informacion." << std::endl; }
+                (void)_getch();
+                break;
+            }
+            case '2': {
+                std::cout << "prueba";
+                (void)_getch();
+                break;
+            }
+            case '3': {
+                std::cout << "prueba";
+                (void)_getch();
+                break;
+            }
+            default:
+                break;
             }
         }
     }
