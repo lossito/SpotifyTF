@@ -21,10 +21,11 @@ private:
     ArbolBinario<Cancion*> catalogoNombre;
     ArbolBinario<Cancion*> catalogoId;
     ArbolBinario<Cancion*> catalogoReproducciones;
-    TablaHash<Cancion*, int> busquedasId;
-    //TablaHash<Cancion*, std::string> busquedasArtista;
-    //TablaHash<Cancion*, std::string> busquedasNombre;
-
+    TablaHash<Cancion*, int> busquedaId;
+    TablaHash<Cancion*, std::string> busquedaNombre;
+    TablaHash<ListaSimple<Cancion*>*, std::string> busquedaArtista;
+    TablaHash<ListaSimple<Cancion*>*, std::string> busquedaGenero;
+    
     void cargarDatos() {
         fm.cargarCancion("archivos/canciones.txt", canciones);
         fm.cargarArtista("archivos/artistas.txt", artistas);
@@ -66,13 +67,12 @@ private:
     bool iniciarSesion() {
         system("cls");
         ui.marcoIniciarSesion();
-        std::string user, pass;
-        std::cin >> user;
+        std::string user, pass; std::cin >> user;
         establecerColor(8);  std::cout << "  |  ";
         establecerColor(14); std::cout << "Password";
         establecerColor(8);  std::cout << "  |  >> ";
         establecerColor(7);
-        std::cin >> pass;
+        std::cin >> pass; std::cin.ignore();
         establecerColor(8);
         std::cout << "  +--------------------------------------------------+\n\n";
         Usuario* encontrado = nullptr;
@@ -125,7 +125,7 @@ private:
         establecerColor(8);  std::cout << "  |  ";
         establecerColor(14); std::cout << "Username ";
         establecerColor(8);  std::cout << "|  >> ";
-        establecerColor(7); std::cin >> username;
+        establecerColor(7); std::cin >> username; std::cin.ignore();
         if (existeUsername(username)) {
             establecerColor(8);
             std::cout << "  +--------------------------------------------------+\n\n";
@@ -140,7 +140,7 @@ private:
         establecerColor(14); std::cout << "Password ";
         establecerColor(8);  std::cout << "|  >> ";
         establecerColor(7);
-        std::cin >> password;
+        std::cin >> password; std::cin.ignore();
         establecerColor(8);
         std::cout << "  +--------------------------------------------------+\n\n";
         system("cls");
@@ -152,7 +152,7 @@ private:
         std::cout << ": ";
         establecerColor(7);
         std::string generosInput;
-        std::cin >> generosInput;
+        std::cin >> generosInput; std::cin.ignore();
         int nuevoId = generarNuevoId<Usuario>(usuarios);
         Usuario* nuevoUsuario = new Usuario(nuevoId, nombre, username, password);
         int generosAgregados = agregarGenerosValidos(generosInput, nuevoUsuario);
@@ -249,19 +249,7 @@ private:
         int contador = 0, paginaActual = 0, rangoMaximo = 10, rangoMinimo = 0; char tecla = ' ';
         while (true) {
             contador = 0; system("cls");
-            establecerColor(14); std::cout << std::left << std::setw(5) << "ID" << std::setw(30) << "NOMBRE" << std::setw(18) << "ARTISTA" << std::setw(8) << "REP" << "GENEROS" << std::endl;
-            establecerColor(1); std::cout << std::string(80, '-') << std::endl;
-            catalogo.enOrden([&](Cancion* aux) {
-                if (contador >= rangoMinimo && contador < rangoMaximo) {
-                    aux->imprimirInfo(devolverNombreArtista(aux->getArtistaId())); ListaSimple<int>& temp = aux->getGenerosId(); bool first = true;
-                    temp.recorrer([&](int id) { if (first != true) { std::cout << ", "; }
-                    std::cout << devolverNombreGenero(id); first = false;
-                        });
-                    std::cout << std::endl;
-                }
-                contador++;
-                });
-            std::cout << std::string(80, '-') << std::endl;
+            imprimirCanciones(catalogo, contador, paginaActual, rangoMaximo, rangoMinimo);
             establecerColor(11); std::cout << "   [A] Anterior   [D] Siguiente   [E] Cambiar Orden";
             establecerColor(12); std::cout << "   [Q] Cancelar\n\n"; establecerColor(14); std::cout << "   Tipo de Orden: " << tipoOrden;
             tecla = _getch();
@@ -288,25 +276,14 @@ private:
         int contador = 0, paginaActual = 0, rangoMaximo = 10, rangoMinimo = 0; char tecla = ' ';
         while (true) {
             contador = 0; system("cls");
-            establecerColor(14); std::cout << std::left << std::setw(5) << "Id" << std::setw(30) << "NOMBRE" << std::setw(18) << "ARTISTA" << std::setw(8) << "REP" << "GENEROS" << std::endl;
-            establecerColor(1); std::cout << std::string(80, '-') << std::endl;
-            catalogo.enOrden([&](Cancion* aux) {
-                if (contador >= rangoMinimo && contador < rangoMaximo) {
-                    aux->imprimirInfo(devolverNombreArtista(aux->getArtistaId())); ListaSimple<int>& temp = aux->getGenerosId(); bool first = true;
-                    temp.recorrer([&](int id) { if (first != true) { std::cout << ", "; }
-                    std::cout << devolverNombreGenero(id); first = false;
-                        });
-                    std::cout << std::endl;
-                }
-                contador++;
-                });
-            std::cout << std::string(80, '-') << std::endl;
+            imprimirCanciones(catalogo, contador, paginaActual, rangoMaximo, rangoMinimo);
             establecerColor(11); std::cout << "   [A] Anterior   [D] Siguiente";
             establecerColor(12); std::cout << "   [Q] Cancelar\n\n"; establecerColor(14);
             std::cout << "  +-------REALIZAR BUSQUEDA-------+\n";
             std::cout << "  1. Realizar busqueda por Id\n";
-            std::cout << "  2. Realizar busqueda por Artista\n";
-            std::cout << "  3. Realizar busqueda por Nombre\n";
+            std::cout << "  2. Realizar busqueda por Nombre\n";
+            std::cout << "  3. Realizar busqueda por Artista\n";
+            std::cout << "  4. Realizar busqueda por Genero\n";
             tecla = _getch();
             if (tecla == 'D' || tecla == 'd') {
                 if (contador <= rangoMaximo) continue;
@@ -320,7 +297,7 @@ private:
                 rangoMinimo -= 10; rangoMaximo -= 10;
                 system("cls");
             }
-            else if (tecla == 'Q' || tecla == 'q' || tecla == '1' || tecla == '2' || tecla == '3') {
+            else if (tecla == 'Q' || tecla == 'q' || tecla == '1' || tecla == '2' || tecla == '3' || tecla == '4') {
                 system("cls");
                 return tecla;
             }
@@ -335,26 +312,31 @@ private:
             switch (tecla)
             {
             case '1': {
-                int id = 0; std::cout << "ingrese el Id de la cancion que desea buscar: "; std::cin >> id;
-                establecerColor(14); std::cout << std::endl << std::left << std::setw(5) << "ID" << std::setw(30) << "NOMBRE" << std::setw(18) << "ARTISTA" << std::setw(8) << "REP" << "GENEROS" << std::endl;
-                establecerColor(1); std::cout << std::string(80, '-') << std::endl;
-                Cancion* aux = busquedasId.buscar(id);
-                if (aux != nullptr) {
-                    aux->imprimirInfo(devolverNombreArtista(aux->getArtistaId())); ListaSimple<int>& temp = aux->getGenerosId(); bool first = true;
-                    temp.recorrer([&](int id) { if (first != true) { std::cout << ", "; }
-                    std::cout << devolverNombreGenero(id); first = false; });
-                }
-                else { establecerColor(12); std::cout << "No se encontro informacion." << std::endl; }
+                int id = 0; std::cout << "ingrese el Id de la cancion que desea buscar: "; std::cin >> id; while (std::cin.fail() || id <= 0) {
+                    leerPositivos(id, "Id invalido. Intente nuevamente: ");
+                } std::cin.ignore();
+                buscarCancionId(id);
                 (void)_getch();
                 break;
             }
             case '2': {
-                std::cout << "prueba";
+                std::string nombreCancion; std::cout << "ingrese el nombre de la Cancion que desea buscar: "; std::getline(std::cin, nombreCancion);
+                while (nombreCancion.back() == ' ') { nombreCancion.pop_back(); }
+                buscarCancionNombre(nombreCancion);
                 (void)_getch();
                 break;
             }
             case '3': {
-                std::cout << "prueba";
+                std::string nombreArtista; std::cout << "ingrese el nombre del Artista que desea buscar: "; std::getline(std::cin, nombreArtista);
+                while (nombreArtista.back() == ' ') { nombreArtista.pop_back(); }
+                buscarPorArtista(nombreArtista);
+                (void)_getch();
+                break;
+            }
+            case '4': {
+                std::string nombreGenero; std::cout << "ingrese el nombre del Genero que desea buscar: "; std::getline(std::cin, nombreGenero);
+                while (nombreGenero.back() == ' ') { nombreGenero.pop_back(); }
+                buscarPorGenero(nombreGenero);
                 (void)_getch();
                 break;
             }
@@ -362,6 +344,70 @@ private:
                 break;
             }
         }
+    }
+
+    void buscarCancionId(int id) {
+        Cancion* aux = busquedaId.buscar(id);
+        establecerColor(14); std::cout << std::endl << std::left << std::setw(5) << "ID" << std::setw(30) << "NOMBRE" << std::setw(18) << "ARTISTA" << std::setw(8) << "REP" << "GENEROS" << std::endl;
+        establecerColor(1); std::cout << std::string(80, '-') << std::endl;
+        if (aux != nullptr) {
+            aux->imprimirInfo(devolverNombreArtista(aux->getArtistaId())); ListaSimple<int>& temp = aux->getGenerosId(); bool first = true;
+            temp.recorrer([&](int id) { if (first != true) { std::cout << ", "; }
+            std::cout << devolverNombreGenero(id); first = false; }); std::cout << std::endl;
+        }
+        else { establecerColor(12); std::cout << "No se encontro informacion." << std::endl; }
+    }
+
+    void buscarCancionNombre(std::string nombreCancion) {
+        Cancion* aux = busquedaNombre.buscar(nombreCancion);
+        establecerColor(14); std::cout << std::endl << std::left << std::setw(5) << "ID" << std::setw(30) << "NOMBRE" << std::setw(18) << "ARTISTA" << std::setw(8) << "REP" << "GENEROS" << std::endl;
+        establecerColor(1); std::cout << std::string(80, '-') << std::endl;
+        if (aux != nullptr) {
+            aux->imprimirInfo(devolverNombreArtista(aux->getArtistaId())); ListaSimple<int>& temp = aux->getGenerosId(); bool first = true;
+            temp.recorrer([&](int id) { if (first != true) { std::cout << ", "; }
+            std::cout << devolverNombreGenero(id); first = false; }); std::cout << std::endl;
+        }
+        else { establecerColor(12); std::cout << "No se encontro informacion." << std::endl; }
+    }
+
+    void buscarPorArtista(std::string nombreAux) {
+        ListaSimple<Cancion*>* aux = busquedaArtista.buscar(nombreAux);
+        establecerColor(14); std::cout << std::endl << std::left << std::setw(5) << "ID" << std::setw(30) << "NOMBRE" << std::setw(18) << "ARTISTA" << std::setw(8) << "REP" << "GENEROS" << std::endl;
+        establecerColor(1); std::cout << std::string(80, '-') << std::endl;
+        if (aux != nullptr) {
+            aux->recorrer([&](Cancion* x) { x->imprimirInfo(nombreAux); ListaSimple<int>& temp = x->getGenerosId(); bool first = true;
+            temp.recorrer([&](int id) { if (first != true) { std::cout << ", "; }
+            std::cout << devolverNombreGenero(id); first = false; }); std::cout << std::endl;; });
+        }
+        else { establecerColor(12); std::cout << "No se encontro informacion." << std::endl; }
+    }
+
+    void buscarPorGenero(std::string nombreAux) {
+        ListaSimple<Cancion*>* aux = busquedaGenero.buscar(nombreAux);
+        establecerColor(14); std::cout << std::endl << std::left << std::setw(5) << "ID" << std::setw(30) << "NOMBRE" << std::setw(18) << "ARTISTA" << std::setw(8) << "REP" << "GENEROS" << std::endl;
+        establecerColor(1); std::cout << std::string(80, '-') << std::endl;
+        if (aux != nullptr) {
+            aux->recorrer([&](Cancion* x) { x->imprimirInfo(devolverNombreArtista(x->getArtistaId())); ListaSimple<int>& temp = x->getGenerosId(); bool first = true;
+            temp.recorrer([&](int id) { if (first != true) { std::cout << ", "; }
+            std::cout << devolverNombreGenero(id); first = false; }); std::cout << std::endl;; });
+        }
+        else { establecerColor(12); std::cout << "No se encontro informacion." << std::endl; }
+    }
+
+    void imprimirCanciones(ArbolBinario<Cancion*>& catalogo, int& contador, int& paginaActual, int& rangoMaximo, int& rangoMinimo) {
+        establecerColor(14); std::cout << std::left << std::setw(5) << "Id" << std::setw(30) << "NOMBRE" << std::setw(18) << "ARTISTA" << std::setw(8) << "REP" << "GENEROS" << std::endl;
+        establecerColor(1); std::cout << std::string(80, '-') << std::endl;
+        catalogo.enOrden([&](Cancion* aux) {
+            if (contador >= rangoMinimo && contador < rangoMaximo) {
+                aux->imprimirInfo(devolverNombreArtista(aux->getArtistaId())); ListaSimple<int>& temp = aux->getGenerosId(); bool first = true;
+                temp.recorrer([&](int id) { if (first != true) { std::cout << ", "; }
+                std::cout << devolverNombreGenero(id); first = false;
+                    });
+                std::cout << std::endl;
+            }
+            contador++;
+            });
+        std::cout << std::string(80, '-') << std::endl;
     }
 
     void mostrarGenerosDisponibles() {
@@ -410,6 +456,10 @@ private:
         return generosAgregados;
     }
 
+    void leerPositivos(int& n, std::string texto) {
+        system("cls"); std::cin.clear(); std::cin.ignore(1000, '\n'); std::cout << texto; std::cin >> n;
+    }
+
     bool existeUsername(std::string username) {
         return usuarios.existeNodo([&](Usuario* u) { return u->getUsername() == username; });
     }
@@ -437,7 +487,10 @@ private:
         return nombre;
     }
 public:
-    Sistema() : usuarioActual(nullptr), busquedasId(101, [](int clave) { return clave; }) {
+    Sistema() : usuarioActual(nullptr), busquedaId(101, [](int clave) { return clave; }), busquedaNombre(101, [](std::string clave) {
+        int acumulador = 0; for (int i = 0; i < clave.length(); i++) { acumulador++; } return acumulador; }), busquedaArtista(101, [](std::string clave) { 
+        int acumulador = 0; for (int i = 0; i < clave.length(); i++) { acumulador++; } return acumulador; }), busquedaGenero(101, [](std::string clave) {
+        int acumulador = 0; for (int i = 0; i < clave.length(); i++) { acumulador++; } return acumulador; }) {
         catalogoNombre = ArbolBinario<Cancion*>([](Cancion* a, Cancion* b) {
             return a->getNombre() < b->getNombre();
             });
@@ -457,7 +510,15 @@ public:
             catalogoNombre.insertar(aux);
             catalogoId.insertar(aux);
             catalogoReproducciones.insertar(aux);
-            busquedasId.insertar(aux, aux->getId());
+            busquedaId.insertar(aux, aux->getId());
+            busquedaNombre.insertar(aux, aux->getNombre());
+            std::string nombreArtista = devolverNombreArtista(aux->getArtistaId()); 
+            ListaSimple<Cancion*>* cancionesArtista = busquedaArtista.buscar(nombreArtista);
+            if (cancionesArtista == nullptr) { cancionesArtista = new ListaSimple<Cancion*>; busquedaArtista.insertar(cancionesArtista, nombreArtista); }
+            cancionesArtista->anadirItem(aux);
+            ListaSimple<Cancion*>* cancionesGenero;
+            ListaSimple<int>& auxGeneros = aux->getGenerosId(); auxGeneros.recorrer([&](int x) { std::string nombreGenero = devolverNombreGenero(x); cancionesGenero = busquedaGenero.buscar(nombreGenero); 
+            if (cancionesGenero == nullptr) { cancionesGenero = new ListaSimple<Cancion*>; busquedaGenero.insertar(cancionesGenero, nombreGenero); } cancionesGenero->anadirItem(aux); });
             });
         preLogin();
     }

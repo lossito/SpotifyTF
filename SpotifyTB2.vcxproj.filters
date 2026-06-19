@@ -13,6 +13,15 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Estructuras">
+      <UniqueIdentifier>{d8a20cc9-732e-47dc-97de-0c2bd513a2cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Entidades">
+      <UniqueIdentifier>{27e5868e-8b32-4ea6-91be-2498c0436bc8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Utilidades">
+      <UniqueIdentifier>{b48a3133-d72b-441b-b69d-b8825251b116}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SpotifyTB2.cpp">
@@ -20,47 +29,47 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Cancion.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="ArbolBinario.h">
+      <Filter>Header Files\Estructuras</Filter>
     </ClInclude>
     <ClInclude Include="ListaSimple.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Nodo.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Artista.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Genero.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Usuario.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="DesignUX.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Playlist.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Sistema.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GestorArchivos.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="NodoArbol.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ArbolBinario.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="TablaHash.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Estructuras</Filter>
     </ClInclude>
     <ClInclude Include="NodoHash.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Estructuras</Filter>
+    </ClInclude>
+    <ClInclude Include="NodoArbol.h">
+      <Filter>Header Files\Estructuras</Filter>
+    </ClInclude>
+    <ClInclude Include="Nodo.h">
+      <Filter>Header Files\Estructuras</Filter>
+    </ClInclude>
+    <ClInclude Include="TablaHash.h">
+      <Filter>Header Files\Estructuras</Filter>
+    </ClInclude>
+    <ClInclude Include="Artista.h">
+      <Filter>Header Files\Entidades</Filter>
+    </ClInclude>
+    <ClInclude Include="Cancion.h">
+      <Filter>Header Files\Entidades</Filter>
+    </ClInclude>
+    <ClInclude Include="Genero.h">
+      <Filter>Header Files\Entidades</Filter>
+    </ClInclude>
+    <ClInclude Include="Playlist.h">
+      <Filter>Header Files\Entidades</Filter>
+    </ClInclude>
+    <ClInclude Include="Usuario.h">
+      <Filter>Header Files\Entidades</Filter>
+    </ClInclude>
+    <ClInclude Include="Sistema.h">
+      <Filter>Header Files\Utilidades</Filter>
+    </ClInclude>
+    <ClInclude Include="GestorArchivos.h">
+      <Filter>Header Files\Utilidades</Filter>
+    </ClInclude>
+    <ClInclude Include="DesignUX.h">
+      <Filter>Header Files\Utilidades</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
