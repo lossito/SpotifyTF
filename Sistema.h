@@ -2,12 +2,14 @@
 #include <iostream>
 #include <conio.h>
 #include <ctime>
+#include <vector>
 #include "GestorArchivos.h"
 #include "DesignUX.h"
+#include "Busqueda.h"
+#include "Playlist.h"
 #include "Cola.h"
 #include "ArbolBinario.h"
 #include "TablaHash.h"
-#include "Playlist.h"
 
 class Sistema {
 private:
@@ -27,6 +29,8 @@ private:
     TablaHash<Cancion*, std::string> busquedaNombre;
     TablaHash<ListaSimple<Cancion*>*, std::string> busquedaArtista;
     TablaHash<ListaSimple<Cancion*>*, std::string> busquedaGenero;
+    std::vector<Cancion*> historialCancion;
+    std::vector<Busqueda> historialBusqueda;
     
     void cargarDatos() {
         fm.cargarCancion("archivos/canciones.txt", canciones);
@@ -195,8 +199,10 @@ private:
                 filaReproduccion();
                 break;
             }
-            case '4':
+            case '4': {
+                mostrarHistorial();
                 break;
+            }
             case '5':
                 break;
             case '6': {
@@ -421,11 +427,12 @@ private:
             else { std::cout << "Canciones en fila:\n\n"; int contador = 1;
                 fila.recorrer([&](Cancion* c) { if (c != nullptr) { std::cout << contador << ". " << c->getNombre() << " | " << devolverNombreArtista(c->getArtistaId()) << "\n"; contador++; }}); }
             establecerColor(14); std::cout << "\n------------------------------------------------------------\n";
-            establecerColor(11); std::cout << "   [R] Reproducir   [V] Vaciar fila";
+            establecerColor(11); std::cout << "   [R] Reproducir   [V] Vaciar fila   [G] Generar canciones";
             establecerColor(12); std::cout << "   [Q] Cancelar\n"; 
             tecla = _getch();
             if (tecla == 'V' || tecla == 'v') { fila.vaciar(); }
-            if (tecla == 'R' || tecla == 'r') {
+            if (tecla == 'G' || tecla == 'g') { generarCanciones(); }
+            else if (tecla == 'R' || tecla == 'r') {
                 if (fila.esVacia()) {
                     establecerColor(12); std::cout << "\n   La fila esta vacia.";
                     establecerColor(1);
@@ -470,6 +477,66 @@ private:
                         }
                     }
                 }
+            }
+        }
+    }
+
+    void generarCanciones() {
+        establecerColor(14);
+        int n = 0; std::cout << "\n   Ingrese cuantas canciones desea generar: "; std::cin >> n; validadorNumeros(n, "   Numero invalido. Intente nuevamente: ");
+        char tipo = ' '; std::cout << "   Desea incluir canciones fuera de su rango musical?: \n";
+        establecerColor(11); std::cout << "   [1] Si"; establecerColor(12); std::cout << "   [0] No"; tipo = _getch();
+        std::vector<Cancion*> aux;
+        if (tipo == '1') { canciones.recorrer([&](Cancion* c) { aux.push_back(c); }); }
+        else if (tipo == '0') { canciones.recorrer([&](Cancion* c) { if (generoCoincideUsuario(c)) { aux.push_back(c); }}); }
+        else { establecerColor(12); std::cout << "\n   Respuesta invalida."; (void)_getch(); }
+        if (n > aux.size()) { n = aux.size(); } for (int i = 0; i < n; i++) { int indice = rand() % aux.size(); fila.enqueue(aux[indice]); aux.erase(aux.begin() + indice); }
+    }
+
+    void mostrarHistorial() {
+        char opc = ' ';
+        while (opc != '3') {
+            establecerColor(14);
+            system("cls");
+            std::cout << "---HISTORIALES---" << std::endl; 
+            std::cout << "1. Mostrar por reproducciones" << std::endl;
+            std::cout << "2. Mostrar por busqueda" << std::endl;
+            std::cout << "3. Salir" << std::endl;
+            opc = _getch();
+            switch (opc) {
+            case '1': {
+                if (historialCancion.size() <= 0) { 
+                    establecerColor(12); std::cout << "No se ha reproducido nada esta sesion.\n";
+                    (void)_getch(); break;
+                }
+                system("cls");
+                std::cout << "+                    HISTORIAL                         +\n";
+                establecerColor(1); std::cout << std::string(56, '-') << std::endl;
+                establecerColor(14); std::cout << std::left << std::setw(5) << "Id" << std::setw(30) << "NOMBRE" << std::setw(18) << "ARTISTA" << std::setw(8) << "REP" << std::endl;
+                establecerColor(1); std::cout << std::string(56, '-') << std::endl;
+                int n = 10, paginado = 0; if (n >= historialCancion.size()) { n = historialCancion.size(); } paginado = (historialCancion.size() - 1) - n;
+                for (int i = historialCancion.size() - 1; i > paginado; i--)
+                {
+                    historialCancion[i]->imprimirInfo(devolverNombreArtista(historialCancion[i]->getArtistaId())); std::cout << std::endl;;
+                }
+                (void)_getch();
+                break;
+            }
+            case '2': {
+
+                break;
+            }
+            case '3': {
+
+                break;
+            }
+            default: {
+                moverCursor(2, 26);
+                establecerColor(12);
+                std::cout << "Opcion no valida\n";
+                (void)_getch();
+                break;
+            }
             }
         }
     }
@@ -531,7 +598,8 @@ private:
     }
 
     void registrarReproduccion(Cancion* c) {
-        if (c != nullptr) c->incrementarReproducciones();
+        if (c != nullptr) { c->incrementarReproducciones(); };
+        historialCancion.push_back(c);
         fm.guardarCanciones("archivos/canciones.txt", canciones);
     }
 
@@ -541,6 +609,13 @@ private:
 
     bool existeGenero(int generoId) {
         return generos.existeNodo([&](Genero* g) { return g->getId() == generoId; });
+    }
+
+    bool generoCoincideUsuario(Cancion* c) {
+        bool coincide = false;
+        ListaSimple<int>& auxCancion = c->getGenerosId(); ListaSimple<int>& auxUsuario = usuarioActual->getGenerosPreferidos();
+        auxCancion.recorrer([&](int c) { if (auxUsuario.existeNodo([&](int u) { return c == u; })) { coincide = true; } });
+        return coincide;
     }
 
     template<typename T>

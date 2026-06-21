@@ -74,5 +74,8 @@
     <ClInclude Include="Cola.h">
       <Filter>Header Files\Estructuras</Filter>
     </ClInclude>
+    <ClInclude Include="Busqueda.h">
+      <Filter>Header Files\Entidades</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

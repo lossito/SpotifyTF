@@ -14,9 +14,7 @@ private:
     ListaSimple<int> generosId;
 
 public:
-    Cancion(int id, std::string nombre, int artistaId, int reproducciones = 0)
-        : id(id), nombre(nombre), artistaId(artistaId), reproducciones(reproducciones) {
-    };
+    Cancion(int id, std::string nombre, int artistaId, int reproducciones = 0) : id(id), nombre(nombre), artistaId(artistaId), reproducciones(reproducciones) {};
 
     int getId() { return id; };
     std::string getNombre() { return nombre; };

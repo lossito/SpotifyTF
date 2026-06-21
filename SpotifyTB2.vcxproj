@@ -144,6 +144,7 @@
   <ItemGroup>
     <ClInclude Include="ArbolBinario.h" />
     <ClInclude Include="Artista.h" />
+    <ClInclude Include="Busqueda.h" />
     <ClInclude Include="Cancion.h" />
     <ClInclude Include="Cola.h" />
     <ClInclude Include="DesignUX.h" />
