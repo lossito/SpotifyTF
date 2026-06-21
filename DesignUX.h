@@ -138,9 +138,9 @@ public:
         std::cout << "  >> ";
     }
 
-    void tituloFicha(const std::string titulo, int xPos, int yPos) {
+    void tituloFicha(const std::string titulo, int xPos, int yPos, int color) {
         system("cls");
-        establecerColor(10);
+        establecerColor(color);
         int x = xPos;
         int y = yPos;
         int ancho = titulo.length() + 4;
@@ -204,6 +204,14 @@ public:
         establecerColor(7);
     }
 
+    void marcoGenerosDisponibles() {
+        establecerColor(10);
+        std::cout << "  +-----------------------------------+\n";
+        establecerColor(14);
+        std::cout << "  |        GENEROS DISPONIBLES        |\n";
+        establecerColor(10);
+        std::cout << "  +-----------------------------------+\n";
+    }
     void marco2() {
 
         establecerColor(10);

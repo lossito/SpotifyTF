@@ -71,5 +71,8 @@
     <ClInclude Include="DesignUX.h">
       <Filter>Header Files\Utilidades</Filter>
     </ClInclude>
+    <ClInclude Include="Cola.h">
+      <Filter>Header Files\Estructuras</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
