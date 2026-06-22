@@ -14,6 +14,8 @@ public:
 	bool getEncontrado() { return encontrado; }
 
 	void imprimirInfo() {
-		std::cout << tipo << " | " << dato << " | " << encontrado << std::endl;
+		std::cout << std::left << std::setw(11) << tipo << std::setw(20) << dato << std::setw(20);
+		if (encontrado) { std::cout << "Resultado: Encontrado" << std::endl; }
+		else { std::cout << "Resultado: No encontrado" << std::endl; }
 	}
 };

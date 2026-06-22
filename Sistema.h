@@ -4,6 +4,7 @@
 #include <ctime>
 #include <vector>
 #include "GestorArchivos.h"
+#include "Algoritmos.h"
 #include "DesignUX.h"
 #include "Busqueda.h"
 #include "Playlist.h"
@@ -31,6 +32,8 @@ private:
     TablaHash<ListaSimple<Cancion*>*, std::string> busquedaGenero;
     std::vector<Cancion*> historialCancion;
     std::vector<Busqueda> historialBusqueda;
+    char ajusteReproducciones = '0', ajusteBusquedas = '0';
+    bool ordenAscendente = true;
     
     void cargarDatos() {
         fm.cargarCancion("archivos/canciones.txt", canciones);
@@ -356,6 +359,7 @@ private:
 
     void buscarCancionId(int id) {
         Cancion* aux = busquedaId.buscar(id);
+        historialBusqueda.push_back(Busqueda("Id", std::to_string(id), aux != nullptr));
         establecerColor(14); std::cout << std::endl << std::left << std::setw(5) << "ID" << std::setw(30) << "NOMBRE" << std::setw(18) << "ARTISTA" << std::setw(8) << "REP" << "GENEROS" << std::endl;
         establecerColor(1); std::cout << std::string(80, '-') << std::endl;
         if (aux != nullptr) {
@@ -368,6 +372,7 @@ private:
 
     void buscarCancionNombre(std::string nombreCancion) {
         Cancion* aux = busquedaNombre.buscar(nombreCancion);
+        historialBusqueda.push_back(Busqueda("Nombre", nombreCancion, aux != nullptr));
         establecerColor(14); std::cout << std::endl << std::left << std::setw(5) << "ID" << std::setw(30) << "NOMBRE" << std::setw(18) << "ARTISTA" << std::setw(8) << "REP" << "GENEROS" << std::endl;
         establecerColor(1); std::cout << std::string(80, '-') << std::endl;
         if (aux != nullptr) {
@@ -378,20 +383,22 @@ private:
         else { establecerColor(12); std::cout << "No se encontro informacion." << std::endl; }
     }
 
-    void buscarPorArtista(std::string nombreAux) {
-        ListaSimple<Cancion*>* aux = busquedaArtista.buscar(nombreAux);
+    void buscarPorArtista(std::string nombreArtista) {
+        ListaSimple<Cancion*>* aux = busquedaArtista.buscar(nombreArtista);
+        historialBusqueda.push_back(Busqueda("Artista", nombreArtista, aux != nullptr));
         establecerColor(14); std::cout << std::endl << std::left << std::setw(5) << "ID" << std::setw(30) << "NOMBRE" << std::setw(18) << "ARTISTA" << std::setw(8) << "REP" << "GENEROS" << std::endl;
         establecerColor(1); std::cout << std::string(80, '-') << std::endl;
         if (aux != nullptr) {
-            aux->recorrer([&](Cancion* x) { x->imprimirInfo(nombreAux); ListaSimple<int>& temp = x->getGenerosId(); bool first = true;
+            aux->recorrer([&](Cancion* x) { x->imprimirInfo(nombreArtista); ListaSimple<int>& temp = x->getGenerosId(); bool first = true;
             temp.recorrer([&](int id) { if (first != true) { std::cout << ", "; }
             std::cout << devolverNombreGenero(id); first = false; }); std::cout << std::endl;; });
         }
         else { establecerColor(12); std::cout << "No se encontro informacion." << std::endl; }
     }
 
-    void buscarPorGenero(std::string nombreAux) {
-        ListaSimple<Cancion*>* aux = busquedaGenero.buscar(nombreAux);
+    void buscarPorGenero(std::string nombreGenero) {
+        ListaSimple<Cancion*>* aux = busquedaGenero.buscar(nombreGenero);
+        historialBusqueda.push_back(Busqueda("Genero", nombreGenero, aux != nullptr));
         establecerColor(14); std::cout << std::endl << std::left << std::setw(5) << "ID" << std::setw(30) << "NOMBRE" << std::setw(18) << "ARTISTA" << std::setw(8) << "REP" << "GENEROS" << std::endl;
         establecerColor(1); std::cout << std::string(80, '-') << std::endl;
         if (aux != nullptr) {
@@ -494,14 +501,15 @@ private:
     }
 
     void mostrarHistorial() {
-        char opc = ' ';
-        while (opc != '3') {
+        char opc = ' ', ajuste = '0';
+        while (opc != '4') {
             establecerColor(14);
             system("cls");
             std::cout << "---HISTORIALES---" << std::endl; 
             std::cout << "1. Mostrar por reproducciones" << std::endl;
             std::cout << "2. Mostrar por busqueda" << std::endl;
-            std::cout << "3. Salir" << std::endl;
+            std::cout << "3. Ajustes" << std::endl;
+            std::cout << "4. Salir" << std::endl;
             opc = _getch();
             switch (opc) {
             case '1': {
@@ -515,26 +523,82 @@ private:
                 establecerColor(14); std::cout << std::left << std::setw(5) << "Id" << std::setw(30) << "NOMBRE" << std::setw(18) << "ARTISTA" << std::setw(8) << "REP" << std::endl;
                 establecerColor(1); std::cout << std::string(56, '-') << std::endl;
                 int n = 10, paginado = 0; if (n >= historialCancion.size()) { n = historialCancion.size(); } paginado = (historialCancion.size() - 1) - n;
-                for (int i = historialCancion.size() - 1; i > paginado; i--)
-                {
-                    historialCancion[i]->imprimirInfo(devolverNombreArtista(historialCancion[i]->getArtistaId())); std::cout << std::endl;;
-                }
+                std::vector<Cancion*> vistaReproducciones;
+                for (int i = historialCancion.size() - 1; i > paginado; i--) { vistaReproducciones.push_back(historialCancion[i]); }
+                if (ajusteReproducciones == '0') { for (int i = historialCancion.size() - 1; i > paginado; i--) { historialCancion[i]->imprimirInfo(devolverNombreArtista(historialCancion[i]->getArtistaId())); std::cout << std::endl;; } };
                 (void)_getch();
                 break;
             }
             case '2': {
-
+                if (historialBusqueda.size() <= 0) {
+                    establecerColor(12); std::cout << "No se ha realizado ninguna busqueda esta sesion.\n";
+                    (void)_getch(); break;
+                }
+                system("cls");
+                std::cout << "+                    HISTORIAL                        +\n";
+                establecerColor(1); std::cout << std::string(55, '-') << std::endl;
+                establecerColor(14); std::cout << std::left << std::setw(11) << "TIPO" << std::setw(20) << "BUSQUEDA" << std::setw(20) << "RESULTADO" << std::endl;
+                establecerColor(1); std::cout << std::string(55, '-') << std::endl;
+                int n = 10, paginado = 0; if (n >= historialBusqueda.size()) { n = historialBusqueda.size(); } paginado = (historialBusqueda.size() - 1) - n;
+                std::vector<Busqueda> vistaBusqueda;
+                for (int i = historialBusqueda.size() - 1; i > paginado; i--) { vistaBusqueda.push_back(historialBusqueda[i]); }
+                if (ajusteBusquedas == '0') { for (int i = historialBusqueda.size() - 1; i > paginado; i--) { historialBusqueda[i].imprimirInfo(); } };
+                (void)_getch();
                 break;
             }
             case '3': {
-
+                establecerColor(14);
+                std::cout << "\n +-------CONFIGURACION-------+";
+                std::cout << "\n General        -- "; establecerColor(12); std::cout << "[0] Restablecer"; establecerColor(14);
+                std::cout << "\n Reproducciones -- "; establecerColor(7); std::cout << "[N] Nombre" << "   [I] Id" << "   [R] Reproducciones" << "   [X] Artista"; establecerColor(14);
+                std::cout << "\n Busqueda       -- "; establecerColor(7); std::cout << "[T] Tipo" << "   [B] Busqueda"; establecerColor(14);
+                std::cout << "\n Direccion      -- "; establecerColor(7); std::cout << "[A] Ascendente"; std::cout << "   [D] Descendiente"; establecerColor(14);
+                ajuste = _getch(); ajuste = std::toupper(ajuste);
+                switch (ajuste)
+                {
+                case '0': {
+                    ajusteReproducciones = '0';
+                    ajusteBusquedas = '0';
+                    break;
+                }
+                case 'N': {
+                    ajusteReproducciones = 'N';
+                    break;
+                }
+                case 'I': {
+                    ajusteReproducciones = 'I';
+                    break;
+                }
+                case 'R': {
+                    ajusteReproducciones = 'R';
+                    break;
+                }
+                case 'X': {
+                    ajusteReproducciones = 'X';
+                    break;
+                }
+                case 'T': {
+                    ajusteBusquedas = 'T';
+                    break;
+                }
+                case 'B': {
+                    ajusteBusquedas = 'B';
+                    break;
+                }
+                case 'A': {
+                    ordenAscendente = true;
+                    break;
+                }
+                case 'D': {
+                    ordenAscendente = false;
+                    break;
+                }
+                default:
+                    break;
+                }
                 break;
             }
             default: {
-                moverCursor(2, 26);
-                establecerColor(12);
-                std::cout << "Opcion no valida\n";
-                (void)_getch();
                 break;
             }
             }

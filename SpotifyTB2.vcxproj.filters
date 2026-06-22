@@ -77,5 +77,8 @@
     <ClInclude Include="Busqueda.h">
       <Filter>Header Files\Entidades</Filter>
     </ClInclude>
+    <ClInclude Include="Algoritmos.h">
+      <Filter>Header Files\Utilidades</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

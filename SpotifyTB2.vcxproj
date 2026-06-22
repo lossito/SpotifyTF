@@ -142,6 +142,7 @@
     <ClCompile Include="SpotifyTB2.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Algoritmos.h" />
     <ClInclude Include="ArbolBinario.h" />
     <ClInclude Include="Artista.h" />
     <ClInclude Include="Busqueda.h" />
