@@ -497,7 +497,20 @@ private:
         if (tipo == '1') { canciones.recorrer([&](Cancion* c) { aux.push_back(c); }); }
         else if (tipo == '0') { canciones.recorrer([&](Cancion* c) { if (generoCoincideUsuario(c)) { aux.push_back(c); }}); }
         else { establecerColor(12); std::cout << "\n   Respuesta invalida."; (void)_getch(); }
-        if (n > aux.size()) { n = aux.size(); } for (int i = 0; i < n; i++) { int indice = rand() % aux.size(); fila.enqueue(aux[indice]); aux.erase(aux.begin() + indice); }
+        if (n > aux.size()) { n = aux.size(); } recorridoGenerativoRecursivo(n, aux);
+    }
+
+    void recorridoGenerativoRecursivo(int max, std::vector<Cancion*>& aux) {
+        if (max == 0) return;
+        int indice = rand() % aux.size(); fila.enqueue(aux[indice]); aux.erase(aux.begin() + indice);
+        recorridoGenerativoRecursivo(max - 1, aux);
+    }
+
+    template <typename T>
+    void rellenarVectorRecursivo(int indice, int max, std::vector<T>& original, std::vector<T>& nuevo) {
+        if (max == 0) return;
+        nuevo.push_back(original[indice]); 
+        rellenarVectorRecursivo(indice - 1, max - 1, original, nuevo);
     }
 
     void mostrarHistorial() {
@@ -523,9 +536,35 @@ private:
                 establecerColor(14); std::cout << std::left << std::setw(5) << "Id" << std::setw(30) << "NOMBRE" << std::setw(18) << "ARTISTA" << std::setw(8) << "REP" << std::endl;
                 establecerColor(1); std::cout << std::string(56, '-') << std::endl;
                 int n = 10, paginado = 0; if (n >= historialCancion.size()) { n = historialCancion.size(); } paginado = (historialCancion.size() - 1) - n;
-                std::vector<Cancion*> vistaReproducciones;
-                for (int i = historialCancion.size() - 1; i > paginado; i--) { vistaReproducciones.push_back(historialCancion[i]); }
-                if (ajusteReproducciones == '0') { for (int i = historialCancion.size() - 1; i > paginado; i--) { historialCancion[i]->imprimirInfo(devolverNombreArtista(historialCancion[i]->getArtistaId())); std::cout << std::endl;; } };
+                std::vector<Cancion*> vistaReproducciones; 
+                rellenarVectorRecursivo(historialCancion.size() - 1, n, historialCancion, vistaReproducciones);
+                if (ajusteReproducciones == '0') { for (int i = historialCancion.size() - 1; i > paginado; i--) { historialCancion[i]->imprimirInfo(devolverNombreArtista(historialCancion[i]->getArtistaId())); std::cout << std::endl;; } }
+                else {
+                    std::function<bool(Cancion* a, Cancion* b)> comparar;
+                    switch (ajusteReproducciones)
+                    {
+                    case 'N': {
+                        comparar = [&](Cancion* a, Cancion* b) { if (ordenAscendente) { return a->getNombre() < b->getNombre(); } else return a->getNombre() > b->getNombre(); };
+                        break;
+                    }
+                    case 'I': {
+                        comparar = [&](Cancion* a, Cancion* b) { if (ordenAscendente) { return a->getId() < b->getId(); } else return a->getId() > b->getId(); };
+                        break;
+                    }
+                    case 'R': {
+                        comparar = [&](Cancion* a, Cancion* b) { if (ordenAscendente) { return a->getReproducciones() < b->getReproducciones(); } else return a->getReproducciones() > b->getReproducciones(); };
+                        break;
+                    }
+                    case 'X': {
+                        comparar = [&](Cancion* a, Cancion* b) { if (ordenAscendente) { return devolverNombreArtista(a->getArtistaId()) < devolverNombreArtista(b->getArtistaId()); } else return devolverNombreArtista(a->getArtistaId()) > devolverNombreArtista(b->getArtistaId()); };
+                        break;
+                    }
+                    default:
+                        break;
+                    }
+                    heapSort(vistaReproducciones, comparar);
+                    for (int i = 0; i < n; i++) { vistaReproducciones[i]->imprimirInfo(devolverNombreArtista(vistaReproducciones[i]->getArtistaId())); std::cout << std::endl; }
+                }
                 (void)_getch();
                 break;
             }
@@ -541,8 +580,30 @@ private:
                 establecerColor(1); std::cout << std::string(55, '-') << std::endl;
                 int n = 10, paginado = 0; if (n >= historialBusqueda.size()) { n = historialBusqueda.size(); } paginado = (historialBusqueda.size() - 1) - n;
                 std::vector<Busqueda> vistaBusqueda;
-                for (int i = historialBusqueda.size() - 1; i > paginado; i--) { vistaBusqueda.push_back(historialBusqueda[i]); }
-                if (ajusteBusquedas == '0') { for (int i = historialBusqueda.size() - 1; i > paginado; i--) { historialBusqueda[i].imprimirInfo(); } };
+                rellenarVectorRecursivo(historialBusqueda.size() - 1, n, historialBusqueda, vistaBusqueda);
+                if (ajusteBusquedas == '0') { for (int i = historialBusqueda.size() - 1; i > paginado; i--) { historialBusqueda[i].imprimirInfo(); } }
+                else {
+                    std::function<bool(Busqueda a, Busqueda b)> comparar;
+                    switch (ajusteBusquedas)
+                    {
+                    case 'T': {
+                        comparar = [&](Busqueda a, Busqueda b) { if (ordenAscendente) { return a.getTipo() < b.getTipo(); } else return a.getTipo() > b.getTipo(); };
+                        break;
+                    }
+                    case 'B': {
+                        comparar = [&](Busqueda a, Busqueda b) { if (ordenAscendente) { return a.getDato() < b.getDato(); } else return a.getDato() > b.getDato(); };
+                        break;
+                    }
+                    case 'E': {
+                        comparar = [&](Busqueda a, Busqueda b) { if (ordenAscendente) { return a.getEncontrado() > b.getEncontrado(); } else return a.getEncontrado() < b.getEncontrado(); };
+                        break;
+                    }
+                    default:
+                        break;
+                    }
+                    quickSort(vistaBusqueda, 0, n - 1, comparar);
+                    for (int i = 0; i < n; i++) { vistaBusqueda[i].imprimirInfo(); }
+                }
                 (void)_getch();
                 break;
             }
@@ -551,8 +612,12 @@ private:
                 std::cout << "\n +-------CONFIGURACION-------+";
                 std::cout << "\n General        -- "; establecerColor(12); std::cout << "[0] Restablecer"; establecerColor(14);
                 std::cout << "\n Reproducciones -- "; establecerColor(7); std::cout << "[N] Nombre" << "   [I] Id" << "   [R] Reproducciones" << "   [X] Artista"; establecerColor(14);
-                std::cout << "\n Busqueda       -- "; establecerColor(7); std::cout << "[T] Tipo" << "   [B] Busqueda"; establecerColor(14);
+                std::cout << "\n Busqueda       -- "; establecerColor(7); std::cout << "[T] Tipo" << "   [B] Busqueda" << "   [E] Encontrado"; establecerColor(14);
                 std::cout << "\n Direccion      -- "; establecerColor(7); std::cout << "[A] Ascendente"; std::cout << "   [D] Descendiente"; establecerColor(14);
+                std::cout << "\n Ajuste Actual  -- "; establecerColor(10); std::cout << ajusteReproducciones << " & " << ajusteBusquedas; establecerColor(14); std::cout << " -- "; establecerColor(10);
+                if (ordenAscendente) { std::cout << "Ascendente"; }
+                else { std::cout << "Descendiente"; }
+                establecerColor(14);
                 ajuste = _getch(); ajuste = std::toupper(ajuste);
                 switch (ajuste)
                 {
@@ -583,6 +648,10 @@ private:
                 }
                 case 'B': {
                     ajusteBusquedas = 'B';
+                    break;
+                }
+                case 'E': {
+                    ajusteBusquedas = 'E';
                     break;
                 }
                 case 'A': {
