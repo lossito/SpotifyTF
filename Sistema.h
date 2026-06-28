@@ -187,6 +187,7 @@ private:
             std::cout << "2. Realizar busquedas" << std::endl;
             std::cout << "3. Fila de reproduccion" << std::endl;
             std::cout << "4. Historial" << std::endl;
+            std::cout << "5. Recomendacion Semanal" << std::endl;
             std::cout << "6. Cerrar sesion" << std::endl;
             opc = _getch();
             switch (opc) {
@@ -206,8 +207,10 @@ private:
                 mostrarHistorial();
                 break;
             }
-            case '5':
+            case '5': {
+                recomendacionSemanal();
                 break;
+            }
             case '6': {
 
                 break;
@@ -513,6 +516,13 @@ private:
         rellenarVectorRecursivo(indice - 1, max - 1, original, nuevo);
     }
 
+    void filtrarGustosRecursivo(std::vector<Cancion*>& enteras, std::vector<Cancion*>& recomendaciones) {
+        if (recomendaciones.size() == 10 || enteras.empty()) return;
+        int i = rand() % enteras.size(); if (generoCoincideUsuario(enteras[i])) { recomendaciones.push_back(enteras[i]); }
+        enteras.erase(enteras.begin() + i);
+        filtrarGustosRecursivo(enteras, recomendaciones);
+    }
+
     void mostrarHistorial() {
         char opc = ' ', ajuste = '0';
         while (opc != '4') {
@@ -672,6 +682,14 @@ private:
             }
             }
         }
+    }
+
+    void recomendacionSemanal() {
+        system("cls");
+        std::vector<Cancion*> enteras; canciones.recorrer([&](Cancion* c) { enteras.push_back(c); });
+        std::vector<Cancion*> recomendaciones; filtrarGustosRecursivo(enteras, recomendaciones);
+        for (int i = 0; i < 10; i++) { recomendaciones[i]->imprimirInfo(devolverNombreArtista(recomendaciones[i]->getArtistaId())); std::cout << std::endl; }
+        (void)_getch();
     }
 
     void mostrarGenerosDisponibles() {
