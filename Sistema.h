@@ -9,8 +9,10 @@
 #include "Busqueda.h"
 #include "Playlist.h"
 #include "Cola.h"
-#include "ArbolBinario.h"
+#include "Arbol.h"
+#include "ArbolAVL.h"
 #include "TablaHash.h"
+#include "Grafo.h"
 
 class Sistema {
 private:
@@ -23,15 +25,16 @@ private:
     ListaSimple<Usuario*> usuarios;
     ListaSimple<Playlist*> playlists;
     Cola<Cancion*> fila;
-    ArbolBinario<Cancion*> catalogoNombre;
-    ArbolBinario<Cancion*> catalogoId;
-    ArbolBinario<Cancion*> catalogoReproducciones;
+    Arbol<Cancion*> catalogoNombre;
+    ArbolAVL<Cancion*> catalogoId;
+    ArbolAVL<Cancion*> catalogoReproducciones;
     TablaHash<Cancion*, int> busquedaId;
     TablaHash<Cancion*, std::string> busquedaNombre;
     TablaHash<ListaSimple<Cancion*>*, std::string> busquedaArtista;
     TablaHash<ListaSimple<Cancion*>*, std::string> busquedaGenero;
     std::vector<Cancion*> historialCancion;
     std::vector<Busqueda> historialBusqueda;
+    Grafo<int> grafoCanciones;
     char ajusteReproducciones = '0', ajusteBusquedas = '0';
     bool ordenAscendente = true;
     
@@ -255,7 +258,8 @@ private:
         }
     }
 
-    char catalogoCanciones(ArbolBinario<Cancion*>& catalogo, std::string tipoOrden) {
+    template <typename T>
+    char catalogoCanciones(T& catalogo, std::string tipoOrden) {
         int contador = 0, paginaActual = 0, rangoMaximo = 10, rangoMinimo = 0; char tecla = ' ';
         while (true) {
             contador = 0; system("cls");
@@ -290,66 +294,41 @@ private:
         }
     }
 
-    char catalogoSinCambio(ArbolBinario<Cancion*>& catalogo) {
-        int contador = 0, paginaActual = 0, rangoMaximo = 10, rangoMinimo = 0; char tecla = ' ';
-        while (true) {
-            contador = 0; system("cls");
-            imprimirCanciones(catalogo, contador, paginaActual, rangoMaximo, rangoMinimo);
-            establecerColor(11); std::cout << "   [A] Anterior   [D] Siguiente";
-            establecerColor(12); std::cout << "   [Q] Cancelar\n\n"; establecerColor(14);
-            std::cout << "  +-------REALIZAR BUSQUEDA-------+\n";
-            std::cout << "  1. Realizar busqueda por Id\n";
-            std::cout << "  2. Realizar busqueda por Nombre\n";
-            std::cout << "  3. Realizar busqueda por Artista\n";
-            std::cout << "  4. Realizar busqueda por Genero\n";
-            tecla = _getch();
-            if (tecla == 'D' || tecla == 'd') {
-                if (contador <= rangoMaximo) continue;
-                paginaActual++;
-                rangoMinimo += 10; rangoMaximo += 10;
-                system("cls");
-            }
-            else if (tecla == 'A' || tecla == 'a') {
-                if (paginaActual <= 0) continue;
-                paginaActual--;
-                rangoMinimo -= 10; rangoMaximo -= 10;
-                system("cls");
-            }
-            else if (tecla == 'Q' || tecla == 'q' || tecla == '1' || tecla == '2' || tecla == '3' || tecla == '4') {
-                system("cls");
-                return tecla;
-            }
-        }
-    }
-    
     void realizarBusqueda() {
         char tecla = ' ';
-        while (tecla != 'Q' && tecla != 'q')
+        while (tecla != '5')
         {
-            tecla = catalogoSinCambio(catalogoId);
+            establecerColor(14); system("cls");
+            std::cout << "+-------REALIZAR BUSQUEDA-------+\n";
+            std::cout << "1. Realizar busqueda por Id\n";
+            std::cout << "2. Realizar busqueda por Nombre\n";
+            std::cout << "3. Realizar busqueda por Artista\n";
+            std::cout << "4. Realizar busqueda por Genero\n";
+            std::cout << "5. Salir\n";
+            tecla = _getch();
             switch (tecla)
             {
             case '1': {
-                int id = 0; std::cout << "ingrese el Id de la cancion que desea buscar: "; std::cin >> id; 
+                int id = 0; std::cout << "\ningrese el Id de la cancion que desea buscar: "; std::cin >> id; 
                 validadorNumeros(id, "Id invalido. Intente nuevamente: ");
                 buscarCancionId(id);
                 (void)_getch();
                 break;
             }
             case '2': {
-                std::string nombreCancion; validadorTexto(nombreCancion, "ingrese el nombre de la Cancion que desea buscar: "); 
+                std::string nombreCancion; validadorTexto(nombreCancion, "\ningrese el nombre de la Cancion que desea buscar: "); 
                 buscarCancionNombre(nombreCancion);
                 (void)_getch();
                 break;
             }
             case '3': {
-                std::string nombreArtista; validadorTexto(nombreArtista, "ingrese el nombre del Artista que desea buscar: ");
+                std::string nombreArtista; validadorTexto(nombreArtista, "\ningrese el nombre del Artista que desea buscar: ");
                 buscarPorArtista(nombreArtista);
                 (void)_getch();
                 break;
             }
             case '4': {
-                std::string nombreGenero; validadorTexto(nombreGenero, "ingrese el nombre del Genero que desea buscar: "); 
+                std::string nombreGenero; validadorTexto(nombreGenero, "\ningrese el nombre del Genero que desea buscar: "); 
                 buscarPorGenero(nombreGenero);
                 (void)_getch();
                 break;
@@ -412,7 +391,8 @@ private:
         else { establecerColor(12); std::cout << "No se encontro informacion." << std::endl; }
     }
 
-    void imprimirCanciones(ArbolBinario<Cancion*>& catalogo, int& contador, int& paginaActual, int& rangoMaximo, int& rangoMinimo) {
+    template <typename T>
+    void imprimirCanciones(T& catalogo, int& contador, int& paginaActual, int& rangoMaximo, int& rangoMinimo) {
         establecerColor(14); std::cout << std::left << std::setw(5) << "Id" << std::setw(30) << "NOMBRE" << std::setw(18) << "ARTISTA" << std::setw(8) << "REP" << "GENEROS" << std::endl;
         establecerColor(1); std::cout << std::string(80, '-') << std::endl;
         catalogo.enOrden([&](Cancion* aux) {
@@ -690,6 +670,7 @@ private:
         std::vector<Cancion*> recomendaciones; filtrarGustosRecursivo(enteras, recomendaciones);
         for (int i = 0; i < 10; i++) { recomendaciones[i]->imprimirInfo(devolverNombreArtista(recomendaciones[i]->getArtistaId())); std::cout << std::endl; }
         (void)_getch();
+        explorarRelacionadas();
     }
 
     void mostrarGenerosDisponibles() {
@@ -704,6 +685,22 @@ private:
         establecerColor(10);
         std::cout << "  +-----------------------------------+\n";
         establecerColor(7);
+    }
+
+    void explorarRelacionadas() {
+        system("cls");
+        int id = 0; establecerColor(14); std::cout << "Ingrese el Id de la cancion base: "; establecerColor(7); std::cin >> id;
+        validadorNumeros(id, "Id invalido. Intente nuevamente: ");
+        Cancion* base = busquedaId.buscar(id);
+        if (base == nullptr) { establecerColor(12); std::cout << "\n   No se encontro la cancion.\n"; establecerColor(7); (void)_getch(); return; }
+        system("cls");
+        establecerColor(14); std::cout << "\nCanciones relacionadas con \"" << base->getNombre() << "\" (mismo genero, hasta 2 niveles en el grafo):\n\n";
+        establecerColor(7); std::cout << std::left << std::setw(5) << "ID" << std::setw(30) << "NOMBRE" << std::setw(18) << "ARTISTA" << std::setw(8) << "REP" << std::endl;
+        establecerColor(1); std::cout << std::string(60, '-') << std::endl; establecerColor(7); int contador = 0;
+        grafoCanciones.recorrerRelacionados(id, 2, [&](int id) { Cancion* c = busquedaId.buscar(id);
+        if (c != nullptr) { c->imprimirInfo(devolverNombreArtista(c->getArtistaId())); std::cout << std::endl; contador++; }});
+        if (contador == 0) { establecerColor(12); std::cout << "No se encontraron canciones relacionadas.\n"; establecerColor(7); }
+        (void)_getch();
     }
 
     int agregarGenerosValidos(std::string generosInput, Usuario* nuevoUsuario) {
@@ -731,6 +728,21 @@ private:
             }
         }
         return generosAgregados;
+    }
+
+    bool estanRelacionadas(Cancion* a, Cancion* b) {
+        bool coincide = false;
+        if (a->getArtistaId() == b->getArtistaId()) { coincide = true; }
+        ListaSimple<int>& generosA = a->getGenerosId();
+        ListaSimple<int>& generosB = b->getGenerosId();
+        generosA.recorrer([&](int generoA) { if (generosB.existeNodo([&](int generoB) { return generoA == generoB;})) { coincide = true; }});
+        return coincide;
+    }
+
+    void construirGrafoCanciones() {
+        grafoCanciones = Grafo<int>();
+        canciones.recorrer([&](Cancion* c) { grafoCanciones.agregarVertice(c->getId()); });
+        canciones.recorrer([&](Cancion* a) { canciones.recorrer([&](Cancion* b) { if (a->getId() < b->getId() && estanRelacionadas(a, b)) { grafoCanciones.agregarArista(a->getId(), b->getId()); }}); });
     }
 
     void validadorNumeros(int& n, std::string texto) {
@@ -792,13 +804,13 @@ public:
         int acumulador = 0; for (int i = 0; i < clave.length(); i++) { acumulador++; } return acumulador; }), busquedaArtista(101, [](std::string clave) { 
         int acumulador = 0; for (int i = 0; i < clave.length(); i++) { acumulador++; } return acumulador; }), busquedaGenero(101, [](std::string clave) {
         int acumulador = 0; for (int i = 0; i < clave.length(); i++) { acumulador++; } return acumulador; }) {
-        catalogoNombre = ArbolBinario<Cancion*>([](Cancion* a, Cancion* b) {
+        catalogoNombre = Arbol<Cancion*>([](Cancion* a, Cancion* b) {
             return a->getNombre() < b->getNombre();
             });
-        catalogoId = ArbolBinario<Cancion*>([](Cancion* a, Cancion* b) {
+        catalogoId = ArbolAVL<Cancion*>([](Cancion* a, Cancion* b) {
             return a->getId() < b->getId();
             });
-        catalogoReproducciones = ArbolBinario<Cancion*>([](Cancion* a, Cancion* b) {
+        catalogoReproducciones = ArbolAVL<Cancion*>([](Cancion* a, Cancion* b) {
             return a->getReproducciones() > b->getReproducciones();
             });
     };
@@ -821,6 +833,7 @@ public:
             ListaSimple<int>& auxGeneros = aux->getGenerosId(); auxGeneros.recorrer([&](int x) { std::string nombreGenero = devolverNombreGenero(x); cancionesGenero = busquedaGenero.buscar(nombreGenero); 
             if (cancionesGenero == nullptr) { cancionesGenero = new ListaSimple<Cancion*>; busquedaGenero.insertar(cancionesGenero, nombreGenero); } cancionesGenero->anadirItem(aux); });
             });
+        construirGrafoCanciones();
         preLogin();
     }
 };

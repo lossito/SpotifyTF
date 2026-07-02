@@ -2,7 +2,7 @@
 #include "NodoArbol.h"
 #include <functional>
 template <typename T>
-class ArbolBinario {
+class Arbol {
 private:
     NodoArbol<T>* raiz;
     std::function<bool(T, T)> comparar;
@@ -31,8 +31,8 @@ private:
     }
 
 public:
-    ArbolBinario() : raiz(nullptr) {}
-    ArbolBinario(std::function<bool(T, T)> criterio) : raiz(nullptr), comparar(criterio) {}
+    Arbol() : raiz(nullptr) {}
+    Arbol(std::function<bool(T, T)> criterio) : raiz(nullptr), comparar(criterio) {}
     
     void insertar(T item) {
         raiz = insert(item, raiz);

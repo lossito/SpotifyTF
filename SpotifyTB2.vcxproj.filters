@@ -29,7 +29,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ArbolBinario.h">
+    <ClInclude Include="Arbol.h">
       <Filter>Header Files\Estructuras</Filter>
     </ClInclude>
     <ClInclude Include="ListaSimple.h">
@@ -79,6 +79,15 @@
     </ClInclude>
     <ClInclude Include="Algoritmos.h">
       <Filter>Header Files\Utilidades</Filter>
+    </ClInclude>
+    <ClInclude Include="NodoAVL.h">
+      <Filter>Header Files\Estructuras</Filter>
+    </ClInclude>
+    <ClInclude Include="ArbolAVL.h">
+      <Filter>Header Files\Estructuras</Filter>
+    </ClInclude>
+    <ClInclude Include="Grafo.h">
+      <Filter>Header Files\Estructuras</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -143,7 +143,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Algoritmos.h" />
-    <ClInclude Include="ArbolBinario.h" />
+    <ClInclude Include="Arbol.h" />
+    <ClInclude Include="ArbolAVL.h" />
     <ClInclude Include="Artista.h" />
     <ClInclude Include="Busqueda.h" />
     <ClInclude Include="Cancion.h" />
@@ -151,9 +152,11 @@
     <ClInclude Include="DesignUX.h" />
     <ClInclude Include="Genero.h" />
     <ClInclude Include="GestorArchivos.h" />
+    <ClInclude Include="Grafo.h" />
     <ClInclude Include="ListaSimple.h" />
     <ClInclude Include="Nodo.h" />
     <ClInclude Include="NodoArbol.h" />
+    <ClInclude Include="NodoAVL.h" />
     <ClInclude Include="NodoHash.h" />
     <ClInclude Include="Playlist.h" />
     <ClInclude Include="Sistema.h" />
