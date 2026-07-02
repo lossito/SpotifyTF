@@ -1,6 +1,7 @@
 #pragma once
 #include <functional>
 #include "NodoHash.h"
+
 template <typename T, typename K>
 class TablaHash
 {

@@ -2,6 +2,7 @@
 #include "Nodo.h"
 #include <iostream>
 #include <functional>
+
 template <typename T>
 class ListaSimple {
 private:

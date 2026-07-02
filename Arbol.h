@@ -1,6 +1,7 @@
 #pragma once
 #include "NodoArbol.h"
 #include <functional>
+
 template <typename T>
 class Arbol {
 private:

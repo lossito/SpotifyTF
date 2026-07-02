@@ -2,6 +2,7 @@
 #include "Nodo.h"
 #include <functional>
 #include <iostream>
+
 template <typename T>
 class Cola { 
 private:

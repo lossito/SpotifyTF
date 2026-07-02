@@ -56,9 +56,6 @@
     <ClInclude Include="Genero.h">
       <Filter>Header Files\Entidades</Filter>
     </ClInclude>
-    <ClInclude Include="Playlist.h">
-      <Filter>Header Files\Entidades</Filter>
-    </ClInclude>
     <ClInclude Include="Usuario.h">
       <Filter>Header Files\Entidades</Filter>
     </ClInclude>

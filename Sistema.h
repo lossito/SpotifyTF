@@ -7,7 +7,6 @@
 #include "Algoritmos.h"
 #include "DesignUX.h"
 #include "Busqueda.h"
-#include "Playlist.h"
 #include "Cola.h"
 #include "Arbol.h"
 #include "ArbolAVL.h"
@@ -23,7 +22,6 @@ private:
     ListaSimple<Artista*> artistas;
     ListaSimple<Genero*>  generos;
     ListaSimple<Usuario*> usuarios;
-    ListaSimple<Playlist*> playlists;
     Cola<Cancion*> fila;
     Arbol<Cancion*> catalogoNombre;
     ArbolAVL<Cancion*> catalogoId;
@@ -43,7 +41,6 @@ private:
         fm.cargarArtista("archivos/artistas.txt", artistas);
         fm.cargarGenero("archivos/generos.txt", generos);
         fm.cargarUsuario("archivos/usuarios.txt", usuarios);
-        fm.cargarPlaylist("archivos/playlists.txt", playlists, canciones);
     }
 
     void preLogin() {
