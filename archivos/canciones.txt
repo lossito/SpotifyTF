@@ -1,280 +1,280 @@
-1@Wasted (feat. Lil Uzi Vert)@3@27@15,14,13
-2@Lucid Dreams@3@28@15,14
-3@Let Me Know (I Wonder Why)@3@36@15,14
-4@Robbery@3@1@15,14
+1@Wasted (feat. Lil Uzi Vert)@3@28@15,14,13
+2@Lucid Dreams@3@29@15,14
+3@Let Me Know (I Wonder Why)@3@37@15,14
+4@Robbery@3@5@15,14
 5@Empty@3@6@15,14,17
-6@Save That Shit@2@11@15,17
+6@Save That Shit@2@13@15,17
 7@Beamer Boy@2@18@15,16,17
-8@Star Shopping@2@34@15,17,27
+8@Star Shopping@2@36@15,17,27
 9@Ghost Girl@2@27@15,17,27
-10@Sienna@4@7@21,19,4
+10@Sienna@4@8@21,19,4
 11@No One Noticed@4@3@21,19,4
-12@Lejos de Ti@4@6@21,19,46
+12@Lejos de Ti@4@7@21,19,46
 13@Back To Me@4@8@21,19,4
-14@Nobody New@4@1@21,19,4
+14@Nobody New@4@3@21,19,4
 15@Sweet Boy@6@5@20,19
-16@Earrings@6@4@20,19
-17@Chest Pain (I Love)@6@2@20,19,4
+16@Earrings@6@6@20,19
+17@Chest Pain (I Love)@6@3@20,19,4
 18@Amor de Siempre@7@5@20,19,45
 19@Lover Is a Day@7@5@20,19,23
-20@Show Me How@8@3@21,19
-21@Bad Habit@10@1@3,4,19
-22@Dark Red@10@6@4,19,20
-23@Some@10@2@4,19
-24@Infrunami@10@1@4,19,20
-25@After The Storm (feat. Tyler The Creator)@12@0@3,6,10
-26@telepatia@12@1@4,45,3
-27@Otro Atardecer (feat. The Marias)@11@4@43,19,21
-28@Ojitos Lindos (feat. Bomba Estereo)@11@2@43,45
-29@LA CANCION@11@1@43,44,45
-30@KLOuFRENS@11@1@43,44
-31@Young@13@4@19,27
-32@Honey@13@3@19,27
+20@Show Me How@8@5@21,19
+21@Bad Habit@10@3@3,4,19
+22@Dark Red@10@8@4,19,20
+23@Some@10@5@4,19
+24@Infrunami@10@2@4,19,20
+25@After The Storm (feat. Tyler The Creator)@12@2@3,6,10
+26@telepatia@12@2@4,45,3
+27@Otro Atardecer (feat. The Marias)@11@5@43,19,21
+28@Ojitos Lindos (feat. Bomba Estereo)@11@3@43,45
+29@LA CANCION@11@2@43,44,45
+30@KLOuFRENS@11@2@43,44
+31@Young@13@5@19,27
+32@Honey@13@4@19,27
 33@Telephones@13@0@19,27
-34@Nights@14@3@4,6,24
+34@Nights@14@4@4,6,24
 35@Thinkin Bout You@14@16@4,3,6
 36@White Ferrari@14@5@4,22,24
-37@Pink + White@14@5@4,6,1
+37@Pink + White@14@8@4,6,1
 38@Loose@17@3@3,6
-39@Get You (feat. Kali Uchis)@17@1@3,6,4
-40@Best Part (feat. H.E.R.)@17@0@3,6,7
+39@Get You (feat. Kali Uchis)@17@3@3,6,4
+40@Best Part (feat. H.E.R.)@17@1@3,6,7
 41@Love Me Harder (with Ariana Grande)@23@3@1,2,3
 42@Call Out My Name@23@1@4,3
-43@Heartless@23@5@3,13,1
+43@Heartless@23@6@3,13,1
 44@I Was Never There@23@1@4,3,22
-45@Wasted Times@23@4@4,3
+45@Wasted Times@23@5@4,3
 46@Out of Time@23@1@3,7,50
-47@Die For You@23@5@3,1
-48@Earned It@23@1@3,8,9
+47@Die For You@23@7@3,1
+48@Earned It@23@2@3,8,9
 49@The Hills@23@3@4,3,13
-50@Blinding Lights@23@8@1,2,51
-51@Save Your Tears@23@12@1,2
+50@Blinding Lights@23@9@1,2,51
+51@Save Your Tears@23@13@1,2
 52@Starboy (feat. Daft Punk)@23@4@1,2,51
-53@Kiss of Life@43@1@8,7,3
-54@Like a Tattoo@43@1@8,7,9
-55@Smooth Operator@43@2@8,7,3
+53@Kiss of Life@43@3@8,7,3
+54@Like a Tattoo@43@2@8,7,9
+55@Smooth Operator@43@3@8,7,3
 56@No Ordinary Love@43@8@8,7,3
-57@Birds of a Feather@26@7@1,21,4
-58@Wildflower@26@8@1,4,21
+57@Birds of a Feather@26@8@1,21,4
+58@Wildflower@26@9@1,4,21
 59@From The Start@34@6@56,55,1
-60@Lover Girl@34@8@56,1
-61@Promise@34@6@56,55
-62@Falling Behind@34@20@56,55,1
+60@Lover Girl@34@9@56,1
+61@Promise@34@7@56,55
+62@Falling Behind@34@22@56,55,1
 63@Let You Break My Heart Again@34@1@56,55,47
 64@Not Allowed@31@2@19,20,53
-65@Lovers Rock@31@3@19,20,31
+65@Lovers Rock@31@4@19,20,31
 66@Cigarettes out the Window@31@7@19,20
-67@Laura@31@3@19,20
-68@Loving Machine@31@1@19,20,51
-69@Freaking Out the Neighborhood@48@4@19,26,20
-70@My Kind of Woman@48@0@19,20,27
-71@Moonlight on the River@48@1@19,20,23
+67@Laura@31@5@19,20
+68@Loving Machine@31@2@19,20,51
+69@Freaking Out the Neighborhood@48@5@19,26,20
+70@My Kind of Woman@48@1@19,20,27
+71@Moonlight on the River@48@2@19,20,23
 72@No Other Heart@48@3@19,20
 73@Chamber of Reflection@48@5@19,23,51
 74@For the First Time@48@1@19,20,27
-75@Let Her Go@48@7@19,20
+75@Let Her Go@48@8@19,20
 76@Stateside (feat. Zara Larsson)@40@9@1,2,53
-77@Just for Me@40@9@1,53,20
+77@Just for Me@40@11@1,53,20
 78@Pain@40@2@53,1,20
 79@Break It Off@40@13@53,1,51
 80@Die For You@37@6@4,1
 81@Slow Dancing in the Dark@37@6@4,1,22
-82@Yeah Right@37@17@4,13,1
-83@Glimpse of Us@37@14@1,47
+82@Yeah Right@37@18@4,13,1
+83@Glimpse of Us@37@17@1,47
 84@Worldstar Money (interlude)@37@0@54,4
-85@Will He@37@17@4,1
-86@Locked out of Heaven@28@6@1,37,9
-87@That's What I Like@28@8@3,9,1
-88@Just the Way You Are@28@10@1,3
-89@When I Was Your Man@28@7@1,47
+85@Will He@37@18@4,1
+86@Locked out of Heaven@28@8@1,37,9
+87@That's What I Like@28@11@3,9,1
+88@Just the Way You Are@28@11@1,3
+89@When I Was Your Man@28@8@1,47
 90@Talking to the Moon@28@15@1,47
-91@It Will Rain@28@3@1,3
-92@Die With A Smile (with Lady Gaga)@28@6@1,3,47
+91@It Will Rain@28@5@1,3
+92@Die With A Smile (with Lady Gaga)@28@7@1,3,47
 93@Self Care@29@1@10,12,18
-94@Good News@29@4@18,10,4
-95@Small Worlds@29@1@10,18,4
-96@Dang! (feat. Anderson Paak)@29@1@10,9,18
+94@Good News@29@5@18,10,4
+95@Small Worlds@29@2@10,18,4
+96@Dang! (feat. Anderson Paak)@29@2@10,9,18
 97@Congratulations (feat. Bilal)@29@1@10,18,6
-98@My Favorite Part (feat. Ariana Grande)@29@2@3,6,10
-99@2009@29@4@18,10,6
-100@the perfect pair@25@2@19,20
+98@My Favorite Part (feat. Ariana Grande)@29@4@3,6,10
+99@2009@29@5@18,10,6
+100@the perfect pair@25@3@19,20
 101@Glue Song@25@10@19,20,1
-102@Apple Cider@25@2@19,20
-103@Beaches@25@1@19,27
-104@Coffee@25@2@19,20
+102@Apple Cider@25@3@19,20
+103@Beaches@25@3@19,27
+104@Coffee@25@3@19,20
 105@All I Did Was Dream of You (feat. The Marias)@25@2@19,21
 106@Sometimes@27@1@21,19
 107@I Found Love@27@0@21,19
-108@Mrs Magic@44@2@21,23,19
+108@Mrs Magic@44@3@21,23,19
 109@Without You@44@1@21,19,20
-110@F Song@44@1@21,19
-111@Apocalypse@38@8@21,22
-112@Sunsetz@38@12@21,22
-113@K.@38@10@21,22
+110@F Song@44@2@21,19
+111@Apocalypse@38@9@21,22
+112@Sunsetz@38@14@21,22
+113@K.@38@12@21,22
 114@Sweet@38@5@21,22
-115@John Wayne@38@2@21,22
-116@I'd Rather Pretend@1@3@4,5,20
-117@Is This Love To You@1@1@4,5,20
-118@Give Me A Sign@1@10@4,3,1
-119@Priceless@1@3@4,3,20
+115@John Wayne@38@3@21,22
+116@I'd Rather Pretend@1@4@4,5,20
+117@Is This Love To You@1@3@4,5,20
+118@Give Me A Sign@1@12@4,3,1
+119@Priceless@1@4@4,3,20
 120@My Everything@1@9@4,1,3
-121@Limbo@1@10@4,20,22
+121@Limbo@1@11@4,20,22
 122@Universe@1@4@4,21,20
-123@Ache@5@5@21,19,24
-124@Kitten@5@1@21,19,4
-125@Back To You@5@0@21,19,4
-126@Puddles@5@7@21,22,19
-127@Vueltas@5@6@21,19,46
-128@Sick Feeling@9@10@19,20,31
-129@Wachito Rico@9@2@19,45,30
+123@Ache@5@6@21,19,24
+124@Kitten@5@2@21,19,4
+125@Back To You@5@1@21,19,4
+126@Puddles@5@8@21,22,19
+127@Vueltas@5@8@21,19,46
+128@Sick Feeling@9@11@19,20,31
+129@Wachito Rico@9@5@19,45,30
 130@Dance Baby@9@1@19,30,1
-131@Everytime@9@1@19,20
-132@tkm@9@4@19,45,20
-133@Feeling Lonely@9@1@19,20
-134@Burn (feat. Ty Dolla Sign)@15@0@11,12,13
+131@Everytime@9@2@19,20
+132@tkm@9@7@19,45,20
+133@Feeling Lonely@9@2@19,20
+134@Burn (feat. Ty Dolla Sign)@15@2@11,12,13
 135@Flashing Lights@15@3@11,14,51
-136@I Wonder@15@2@11,12,7
+136@I Wonder@15@3@11,12,7
 137@Good Life (feat. T-Pain)@15@7@11,14,1
-138@Champion@15@1@11,12,7
+138@Champion@15@2@11,12,7
 139@Slow Jamz (feat. Twista, Jamie Foxx)@15@1@11,3,7
-140@All Falls Down@15@3@11,7,12
+140@All Falls Down@15@5@11,7,12
 141@Spaceship@15@1@11,7,12
-142@Hey Mama@15@1@11,7,12
-143@Devil In A New Dress@15@2@11,12,6
-144@No Church In The Wild@15@1@11,12,27
-145@Hurricane@15@0@11,12,4
+142@Hey Mama@15@2@11,7,12
+143@Devil In A New Dress@15@4@11,12,6
+144@No Church In The Wild@15@3@11,12,27
+145@Hurricane@15@2@11,12,4
 146@Crying Lightning@16@1@26,27,23
-147@Whyd You Only Call Me When Youre High@16@0@26,27,31
-148@505@16@2@26,27,31
-149@R U Mine@16@0@26,27,33
-150@Teddy Picker@16@4@26,27
-151@Brianstorm@16@5@26,27,33
-152@Beautiful@18@1@36,35,31
-153@Bocanada@18@0@36,35,23
+147@Whyd You Only Call Me When Youre High@16@1@26,27,31
+148@505@16@3@26,27,31
+149@R U Mine@16@1@26,27,33
+150@Teddy Picker@16@7@26,27
+151@Brianstorm@16@6@26,27,33
+152@Beautiful@18@4@36,35,31
+153@Bocanada@18@1@36,35,23
 154@Crimen@18@0@36,47,31
 155@Vivo@18@0@36,35,31
-156@Perdonar Es Divino@18@0@36,35,32
-157@Fantasma@18@1@36,35,22
-158@Te Llevo Para Que Me Lleves@18@1@36,35,45
-159@Still Love You@21@1@19,20,21
-160@Por Que Yo No?@22@0@45,46
+156@Perdonar Es Divino@18@1@36,35,32
+157@Fantasma@18@2@36,35,22
+158@Te Llevo Para Que Me Lleves@18@3@36,35,45
+159@Still Love You@21@3@19,20,21
+160@Por Que Yo No?@22@1@45,46
 161@We Never Dated@24@9@1,27,19
 162@Back To Friends@24@6@1,27,19
-163@12 To 12@24@11@1,27,37
+163@12 To 12@24@12@1,27,37
 164@Gospel For A New Century@30@1@28,24,4
 165@Kerosene@30@4@28,27,24
-166@Romanticist@30@1@28,24,27
-167@Afterthought (feat. BENEE)@37@5@4,1,22
+166@Romanticist@30@2@28,24,27
+167@Afterthought (feat. BENEE)@37@7@4,1,22
 168@NITROUS@37@12@4,51,1
 169@Like You Do@37@12@1,47,4
 170@Gimme Love@37@7@1,4,51
-171@Your Man@37@7@1,51,4
-172@777@37@9@4,51,1
-173@Lo Siento BB :/ (feat. Bad Bunny, Julieta Venegas)@32@1@43,45,44
-174@MOJABI GHOST (feat. Bad Bunny)@32@1@43,44
-175@VOLVER (feat. Rauw Alejandro)@32@1@43,51,44
+171@Your Man@37@9@1,51,4
+172@777@37@12@4,51,1
+173@Lo Siento BB :/ (feat. Bad Bunny, Julieta Venegas)@32@3@43,45,44
+174@MOJABI GHOST (feat. Bad Bunny)@32@2@43,44
+175@VOLVER (feat. Rauw Alejandro)@32@2@43,51,44
 176@Manana (feat. Young Miko, The Marias)@32@2@43,45,19
-177@En Visto (feat. Ozuna)@32@1@43,44
+177@En Visto (feat. Ozuna)@32@2@43,44
 178@Si Tu Me Quisieras@41@0@46,47,45
-179@Flaco@41@5@46,37,45
+179@Flaco@41@6@46,37,45
 180@Mi Buen Amor@41@2@46,47,45
-181@Tu Falta De Querer@41@0@46,47,37
-182@Amor Completo@41@0@45,46,37
+181@Tu Falta De Querer@41@2@46,47,37
+182@Amor Completo@41@1@45,46,37
 183@Stephanie@42@11@5,20,1
-184@spin u round (feat. kkanji)@42@1@5,20,10
-185@Bella@42@11@5,1,20
+184@spin u round (feat. kkanji)@42@3@5,20,10
+185@Bella@42@12@5,1,20
 186@Sofias Bestfriend@42@14@5,20,1
-187@dream girl@42@9@5,20,1
-188@Strangers@78@1@1,21,51
-189@Strangers (feat. nafeesisboujee)@78@6@1,21,51
+187@dream girl@42@10@5,20,1
+188@Strangers@78@2@1,21,51
+189@Strangers (feat. nafeesisboujee)@78@7@1,21,51
 190@He Dont Deserve You@46@6@19,20,4
 191@Smoking With Your Best Friend@46@5@19,20,27
 192@Departed@46@1@19,20,27
 193@Before I@46@1@19,20
-194@Ways@46@1@19,20
-195@Change@46@0@19,20,4
+194@Ways@46@2@19,20
+195@Change@46@1@19,20,4
 196@Where Did You Go@47@1@17,18,29,52
-197@Charades@47@6@17,18,29,52
+197@Charades@47@8@17,18,29,52
 198@Welcome and Goodbye@49@0@21,19,20
-199@De Musica Ligera@19@1@36,35,37
+199@De Musica Ligera@19@3@36,35,37
 200@Persiana Americana@19@0@36,35,37
-201@Cuando Pase El Temblor@19@1@36,35,46
+201@Cuando Pase El Temblor@19@2@36,35,46
 202@Por el Resto@20@1@36,35,37
 203@Lamento Boliviano@20@0@36,35,37
-204@Sunflower (with Post Malone)@33@10@14,1,10
-205@Guatemala@33@2@14,10,13
-206@Do Re Mi - Home Demo@35@0@34,60,54
-207@And I Love Her@35@1@60,54
+204@Sunflower (with Post Malone)@33@11@14,1,10
+205@Guatemala@33@3@14,10,13
+206@Do Re Mi - Home Demo@35@1@34,60,54
+207@And I Love Her@35@2@60,54
 208@Smells Like Teen Spirit@36@0@34,27
-209@Come As You Are@36@2@34,27
+209@Come As You Are@36@3@34,27
 210@Ahora Te Puedes Marchar@39@10@45,1
 211@La Incondicional@39@1@45,47
-212@Hasta Que Me Olvides@39@0@47,48,45
-213@El Triste@45@7@47,48
+212@Hasta Que Me Olvides@39@1@47,48,45
+213@El Triste@45@9@47,48
 214@Gavilan o Paloma@45@0@47,48
-215@Almohada@45@1@47,48
-216@Tabaco y Chanel@50@2@45,35,37
-217@Caraluna@50@8@45,37,1
-218@Mi Primer Millon@50@6@45,37,1
-219@Californication@51@0@27,33,37
-220@Otherside@51@0@27,33,31
-221@Snow (Hey Oh)@51@0@27,33,37
-222@Clavado En Un Bar@52@0@36,35,37
+215@Almohada@45@4@47,48
+216@Tabaco y Chanel@50@4@45,35,37
+217@Caraluna@50@10@45,37,1
+218@Mi Primer Millon@50@9@45,37,1
+219@Californication@51@3@27,33,37
+220@Otherside@51@1@27,33,31
+221@Snow (Hey Oh)@51@2@27,33,37
+222@Clavado En Un Bar@52@1@36,35,37
 223@Mariposa Traicionera@52@1@36,35,37
-224@Labios Compartidos@52@2@36,35,37
+224@Labios Compartidos@52@3@36,35,37
 225@Por Un Segundo@53@2@49,45
-226@Los Infieles@53@0@49,45
-227@Stayin Alive@54@12@50,1
+226@Los Infieles@53@1@49,45
+227@Stayin Alive@54@13@50,1
 228@You Should Be Dancing@54@1@50,10
-229@Mojada@55@0@36,35,37
-230@Bye Bye@55@1@36,35,37
+229@Mojada@55@2@36,35,37
+230@Bye Bye@55@3@36,35,37
 231@Una Calle Nos Separa (En Vivo)@56@2@45,47
 232@Siempre Estoy Pensando En Ella (En Vivo)@56@0@45,47
 233@Mal Bicho@57@0@35,36,42
-234@El Matador@57@0@35,36,42
-235@Numb@58@2@39,57,27
+234@El Matador@57@1@35,36,42
+235@Numb@58@4@39,57,27
 236@Given Up@58@2@39,57,27
-237@In The End@58@0@39,57,27
+237@In The End@58@1@39,57,27
 238@Chop Suey!@59@0@39,40,27
 239@Toxicity@59@2@39,40,27
 240@Aerials@59@0@39,40,27
-241@Blind@60@0@39,40,33
-242@Freak On a Leash@60@1@39,40
+241@Blind@60@2@39,40,33
+242@Freak On a Leash@60@2@39,40
 243@Clown@60@0@39,40,33
-244@My Own Summer (Shove It)@61@2@27,40,29
-245@Be Quiet and Drive (Far Away)@61@1@27,29,40
-246@Change (In the House of Flies)@61@1@27,29
+244@My Own Summer (Shove It)@61@3@27,40,29
+245@Be Quiet and Drive (Far Away)@61@2@27,29,40
+246@Change (In the House of Flies)@61@2@27,29
 247@Psychosocial@62@2@39,40
-248@Duality@62@1@39,40
+248@Duality@62@2@39,40
 249@Before I Forget@62@2@39,40
-250@Break Stuff@63@1@39,40,12
-251@My Way@63@3@39,40,12
-252@Take A Look Around@63@1@39,40
-253@This Love@64@0@58,38
-254@Cowboys From Hell@64@3@58,38
-255@Walk@64@0@58,38
+250@Break Stuff@63@2@39,40,12
+251@My Way@63@4@39,40,12
+252@Take A Look Around@63@2@39,40
+253@This Love@64@1@58,38
+254@Cowboys From Hell@64@4@58,38
+255@Walk@64@1@58,38
 256@One@65@0@38,41
-257@For Whom The Bell Tolls@65@1@38,41
-258@Master Of Puppets@65@0@38,41
-259@Send The Pain Below@66@2@57,40
+257@For Whom The Bell Tolls@65@2@38,41
+258@Master Of Puppets@65@1@38,41
+259@Send The Pain Below@66@4@57,40
 260@Comfortable Liar@66@3@57,40
 261@Embracing Emptiness@67@1@59,38
-262@To Build a Mountain@67@1@59,38
-263@Bodies@68@1@57,39
+262@To Build a Mountain@67@4@59,38
+263@Bodies@68@2@57,39
 264@Mute@68@0@57,39
-265@Been A Long Time@69@1@33,38
-266@Rust@69@2@33,38
-267@Es Por Ti@70@1@45,37
-268@A Dios Le Pido@70@3@45,37
-269@Your Love@71@2@32,37
-270@Riptide@72@5@60,25,19
-271@I Hate Everything About You@73@0@57,27
+265@Been A Long Time@69@2@33,38
+266@Rust@69@3@33,38
+267@Es Por Ti@70@2@45,37
+268@A Dios Le Pido@70@4@45,37
+269@Your Love@71@4@32,37
+270@Riptide@72@6@60,25,19
+271@I Hate Everything About You@73@1@57,27
 272@Animal I Have Become@73@1@57,27,33
 273@Symphony Of Destruction@74@1@41,38
-274@Tornado of Souls@74@1@41,38
-275@Down With The Sickness@75@0@39,40,57
+274@Tornado of Souls@74@3@41,38
+275@Down With The Sickness@75@2@39,40,57
 276@Stricken@75@0@39,40
-277@Hunted Down@76@0@34,33
+277@Hunted Down@76@1@34,33
 278@Black Hole Sun@76@1@34,27
 279@Dead Embryonic Cells@77@0@58,41
-280@Roots Bloody Roots@77@0@58,40,38
+280@Roots Bloody Roots@77@1@58,40,38

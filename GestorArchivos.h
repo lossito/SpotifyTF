@@ -17,7 +17,6 @@ public:
             std::cout << "Error de archivo" << std::endl;
             return;
         }
-        std::cout << "Cargando canciones de : " << filePath << std::endl;
         while (getline(file, line)) {
             std::string temp = "";
             int contadorEspacios = 0, id = 0, artistaId = 0, reproducciones = 0;
@@ -82,7 +81,6 @@ public:
             std::cout << "Error de archivo" << std::endl;
             return;
         }
-        std::cout << "Cargando generos de : " << filePath << std::endl;
         while (getline(file, line)) {
             std::string temp = "";
             int contadorEspacios = 0, id = 0;
@@ -112,7 +110,6 @@ public:
             std::cout << "Error de archivo" << std::endl;
             return;
         }
-        std::cout << "Cargando artistas de : " << filePath << std::endl;
         while (getline(file, line)) {
             std::string temp = "";
             int contadorEspacios = 0, id = 0;
@@ -142,7 +139,6 @@ public:
             std::cout << "Error de archivo" << std::endl;
             return;
         }
-        std::cout << "Cargando usuarios de : " << filePath << std::endl;
         while (getline(file, line)) {
             std::string temp = "";
             int contadorEspacios = 0, id = 0;

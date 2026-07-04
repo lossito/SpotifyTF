@@ -15,15 +15,15 @@ private:
 
     int factorBalance(NodoAVL<T>* nodo) {
         if (nodo == nullptr) return 0;
-        return altura(nodo->izquierda) - altura(nodo->derecha);
+        return altura(nodo->derecha) - altura(nodo->izquierda);
     }
 
     void actualizarAltura(NodoAVL<T>* nodo) {
-        int hIzq = altura(nodo->izquierda);
-        int hDer = altura(nodo->derecha);
+        int izq = altura(nodo->izquierda);
+        int der = altura(nodo->derecha);
 
-        if (hIzq > hDer) nodo->altura = hIzq + 1;
-        else nodo->altura = hDer + 1;
+        if (izq > der) nodo->altura = izq + 1;
+        else nodo->altura = der + 1;
     }
 
     NodoAVL<T>* rotarDerecha(NodoAVL<T>* nodo) {
@@ -60,13 +60,13 @@ private:
         actualizarAltura(actual);
         int balance = factorBalance(actual);
 
-        if (balance > 1 && comparar(item, actual->izquierda->dato)) { return rotarDerecha(actual); }
-        if (balance < -1 && !comparar(item, actual->derecha->dato)) { return rotarIzquierda(actual); }
-        if (balance > 1 && !comparar(item, actual->izquierda->dato)) {
+        if (balance < -1 && comparar(item, actual->izquierda->dato)) { return rotarDerecha(actual); }
+        if (balance > 1 && !comparar(item, actual->derecha->dato)) { return rotarIzquierda(actual); }
+        if (balance < -1 && !comparar(item, actual->izquierda->dato)) {
             actual->izquierda = rotarIzquierda(actual->izquierda);
             return rotarDerecha(actual);
         }
-        if (balance < -1 && comparar(item, actual->derecha->dato)) {
+        if (balance > 1 && comparar(item, actual->derecha->dato)) {
             actual->derecha = rotarDerecha(actual->derecha);
             return rotarIzquierda(actual);
         }

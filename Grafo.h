@@ -45,33 +45,7 @@ public:
         return vertices.size();
     }
 
-    void recorrerNiveles(T origen, std::function<void(T)> accion) {
-        int indiceOrigen = buscarIndice(origen);
-        if (indiceOrigen == -1) {
-            return;
-        }
-
-        std::vector<bool> visitado(vertices.size(), false);
-        Cola<int> cola;
-
-        cola.enqueue(indiceOrigen);
-        visitado[indiceOrigen] = true;
-
-        while (!cola.esVacia()) {
-            int actual = cola.front();
-            cola.dequeue();
-            accion(vertices[actual]);
-            for (int i = 0; i < adyacencia[actual].size(); i++) {
-                int vecino = adyacencia[actual][i];
-                if (!visitado[vecino]) {
-                    visitado[vecino] = true;
-                    cola.enqueue(vecino);
-                }
-            }
-        }
-    }
-
-    void recorrerRelacionados(T origen, int saltosMax, std::function<void(T)> accion) {
+    void recorrerAmplitud(T origen, int profundidad, std::function<void(T)> accion) { //BFS
         int indiceOrigen = buscarIndice(origen);
         if (indiceOrigen == -1) { return; }
 
@@ -86,7 +60,7 @@ public:
         while (!cola.esVacia()) {
             int actual = cola.front();
             cola.dequeue();
-            if (distancia[actual] >= saltosMax) { continue; }
+            if (distancia[actual] >= profundidad) { continue; }
 
             for (int i = 0; i < adyacencia[actual].size(); i++) {
                 int vecino = adyacencia[actual][i];
