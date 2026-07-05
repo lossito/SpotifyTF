@@ -703,7 +703,7 @@ private:
         std::vector<Cancion*> relacionadas = relacionadasTotal; std::vector<Cancion*> vistaRelacionadas;
         int n = 10; if (n >= relacionadas.size()) { n = relacionadas.size(); } 
         rellenarVectorAleatorioRecursivo(n, relacionadas, vistaRelacionadas);
-        if (base == nullptr) { establecerColor(12); std::cout << "No se encontro la cancion.\n"; establecerColor(7); (void)_getch(); return; }
+        if (base == nullptr) { establecerColor(12); std::cout << "  No se encontro la cancion.\n"; establecerColor(7); (void)_getch(); return; }
         while (opc != 'Q' && opc != 'q') {
             establecerColor(14);
             system("cls");
