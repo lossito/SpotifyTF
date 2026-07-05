@@ -2,6 +2,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <string>
+#include <iomanip>
 #include <windows.h>
 
 void configurarVentana() {
@@ -82,7 +83,7 @@ public:
                         )";
     }
 
-    void imprimirLogoSpotify(int color) {
+    void imprimirSpotifyTexto(int color) {
         establecerColor(color);
         std::cout << "\n";
         std::cout << "  $$$$$$\\  $$$$$$$\\   $$$$$$\\ $$$$$$$$\\ $$$$$$\\ $$$$$$$$\\ $$\\   $$\\\n";
@@ -93,7 +94,6 @@ public:
         std::cout << " $$\\  $$ | $$ |      $$ |  $$ |  $$ |    $$ |  $$ |             $$ |\n";
         std::cout << " \\$$$$$$  | $$ |     \\$$$$$$  |  $$ |  $$$$$$\\ $$ |             $$ |\n";
         std::cout << "  \\______/  \\__|      \\______/   \\__|  \\______|\\__|             \\__|\n";
-
     }
 
     void animarTitulo() {
@@ -110,15 +110,22 @@ public:
         std::cout << std::endl;
     }
 
+    void animarTexto(std::string texto) {
+        int tam = texto.length();
+        for (int i = 0; i < tam; i++)
+        {
+            std::cout << texto[i];
+            Sleep(70);
+        }
+    }
+
     void pantallaBienvenida() {
         animarTitulo();
-        //imprimirLogoSpotify(10);
-        establecerColor(8);
-        std::cout << "  +-------------------------------------------------+\n";
-        establecerColor(10);
-        std::cout << "  |             Bienvenido a Spotify!               |\n";
-        establecerColor(8);
-        std::cout << "  +-------------------------------------------------+\n";
+        establecerColor(10); moverCursor(16, 21); animarTexto("Bienvenido a Spotify!");
+        establecerColor(8); moverCursor(0, 20); std::cout << "  +-------------------------------------------------+";
+        moverCursor(2, 21); std::cout << "|";
+        moverCursor(52, 21); std::cout << "|";
+        moverCursor(0, 22); std::cout << "  +-------------------------------------------------+\n";
         establecerColor(8);  std::cout << "  |    ";
         establecerColor(11); std::cout << "[1]";
         establecerColor(7);  std::cout << "  Iniciar sesion                          ";
@@ -192,9 +199,9 @@ public:
         establecerColor(1);
     }
     void marcoIniciarSesion() {
-        establecerColor(10);
+        establecerColor(11);
         std::cout << "\n  +==================================================+\n";
-        std::cout << "  |             *** INICIAR SESION ***              |\n";
+        std::cout << "  |             *** INICIAR SESION ***               |\n";
         std::cout << "  +==================================================+\n\n";
         establecerColor(8);
         std::cout << "  +--------------------------------------------------+\n";
@@ -205,127 +212,64 @@ public:
     }
 
     void marcoGenerosDisponibles() {
-        establecerColor(10);
+        establecerColor(11);
         std::cout << "  +-----------------------------------+\n";
-        establecerColor(14);
+        establecerColor(11);
         std::cout << "  |        GENEROS DISPONIBLES        |\n";
-        establecerColor(10);
+        establecerColor(11);
         std::cout << "  +-----------------------------------+\n";
     }
-    void marco2() {
-
+    void marcoPostLogin() {
         establecerColor(10);
-        std::cout << "\n";
-        std::cout << "  $$$$$$\\  $$$$$$$\\   $$$$$$\\ $$$$$$$$\\ $$$$$$\\ $$$$$$$$\\ $$\\   $$\\\n";
-        std::cout << " $$  __$$\\ $$  __$$\\ $$  __$$\\\\__$$  __|\_$$  _|$$  _____|$$ |  $$ |\n";
-        std::cout << " $$ /  \\__|$$ |  $$ |$$ /  $$ |  $$ |    $$ |  $$ |      $$ |  $$ |\n";
-        std::cout << " \\$$$$$$\\  $$$$$$$  |$$ |  $$ |  $$ |    $$ |  $$$$$\\    \\$$$$$$$ |\n";
-        std::cout << "  \\____$$\\ $$  ____/ $$ |  $$ |  $$ |    $$ |  $$  __|    \\_____$$ |\n";
-        std::cout << " $$\\  $$ | $$ |      $$ |  $$ |  $$ |    $$ |  $$ |             $$ |\n";
-        std::cout << " \\$$$$$$  | $$ |     \\$$$$$$  |  $$ |  $$$$$$\\ $$ |             $$ |\n";
-        std::cout << "  \\______/  \\__|      \\______/   \\__|  \\______|\\__|             \\__|\n";
-
-        establecerColor(8);
-        std::cout << "\n  ================================================\n";
-        establecerColor(14);
-        std::cout << "    Bienvenido, ";
-
-        establecerColor(8);
-        std::cout << "\n  ================================================\n";
-        establecerColor(8);
+        imprimirSpotifyTexto(10);
+        establecerColor(14); std::cout << "\n  ================================================\n";
+        establecerColor(11); std::cout << "    Bienvenido, ";
+        establecerColor(14); std::cout << "\n  ================================================\n";
         std::cout << "\n  +---------+-------------------------------+\n";
-        std::cout << "  |  tecla  |  accion                       |\n";
+        std::cout << "  |"; establecerColor(11); std::cout << "  tecla  "; establecerColor(14); std::cout << "|";  establecerColor(11); 
+        std::cout << "  accion"; establecerColor(14); std::cout << "                       |\n";
         std::cout << "  +---------+-------------------------------+\n";
-        establecerColor(8);  std::cout << "  |   ";
-        establecerColor(11); std::cout << "[1]";
-        establecerColor(8);  std::cout << "   |  ";
-        establecerColor(7);  std::cout << "Ver catalogo                 ";
-        establecerColor(8);  std::cout << "|\n";
-        establecerColor(8);  std::cout << "  |   ";
-        establecerColor(11); std::cout << "[2]";
-        establecerColor(8);  std::cout << "   |  ";
-        establecerColor(7);  std::cout << "Mis playlists                ";
-        establecerColor(8);  std::cout << "|\n";
-        establecerColor(8);  std::cout << "  |   ";
-        establecerColor(11); std::cout << "[3]";
-        establecerColor(8);  std::cout << "   |  ";
-        establecerColor(7);  std::cout << "Fila de reproduccion         ";
-        establecerColor(8);  std::cout << "|\n";
-        establecerColor(8);  std::cout << "  |   ";
-        establecerColor(11); std::cout << "[4]";
-        establecerColor(8);  std::cout << "   |  ";
-        establecerColor(7);  std::cout << "Historial                    ";
-        establecerColor(8);  std::cout << "|\n";
-        establecerColor(8);
-        establecerColor(8);  std::cout << "  |   ";
-        establecerColor(11); std::cout << "[5]";
-        establecerColor(8);  std::cout << "   |  ";
-        establecerColor(7);  std::cout << "Top 10 global                ";
-        establecerColor(8);  std::cout << "|\n";
-        establecerColor(8);
+        establecerColor(14);  std::cout << "  |   ";
+        establecerColor(7); std::cout << "[1]";
+        establecerColor(14);  std::cout << "   |  ";
+        establecerColor(11);  std::cout << "Ver catalogo                 ";
+        establecerColor(14);  std::cout << "|\n";
+        establecerColor(14);  std::cout << "  |   ";
+        establecerColor(7); std::cout << "[2]";
+        establecerColor(14);  std::cout << "   |  ";
+        establecerColor(11);  std::cout << "Realizar busquedas           ";
+        establecerColor(14);  std::cout << "|\n";
+        establecerColor(14);  std::cout << "  |   ";
+        establecerColor(7); std::cout << "[3]";
+        establecerColor(14);  std::cout << "   |  ";
+        establecerColor(11);  std::cout << "Fila de reproduccion         ";
+        establecerColor(14);  std::cout << "|\n";
+        establecerColor(14);  std::cout << "  |   ";
+        establecerColor(7); std::cout << "[4]";
+        establecerColor(14);  std::cout << "   |  ";
+        establecerColor(11);  std::cout << "Historial                    ";
+        establecerColor(14);  std::cout << "|\n";
+        establecerColor(14);
+        establecerColor(14);  std::cout << "  |   ";
+        establecerColor(7); std::cout << "[5]";
+        establecerColor(14);  std::cout << "   |  ";
+        establecerColor(11);  std::cout << "Recomendacion semanal        ";
+        establecerColor(14);  std::cout << "|\n";
+        establecerColor(14);
         std::cout << "  +---------+-------------------------------+\n";
-        establecerColor(8);  std::cout << "  |   ";
+        establecerColor(14);  std::cout << "  |   ";
         establecerColor(12); std::cout << "[6]";
-        establecerColor(8);  std::cout << "   |  ";
+        establecerColor(14);  std::cout << "   |  ";
         establecerColor(12); std::cout << "Cerrar sesion                ";
-        establecerColor(8);  std::cout << "|\n";
+        establecerColor(14);  std::cout << "|\n";
         std::cout << "  +---------+-------------------------------+\n\n";
         establecerColor(7);
     }
 
-    void marcoPlaylists() {
-        establecerColor(10);
-        establecerColor(8);
-        std::cout << "  +----+------------------------+-------------+-----------+\n";
-        establecerColor(14);
-        std::cout << "  | Id | Nombre                 | Tipo        | Canciones |\n";
-        establecerColor(8);
-        std::cout << "  +----+------------------------+-------------+-----------+\n";
-        establecerColor(7);
-    }
-
-    void marcoPlaylistsOpciones() {
-        establecerColor(8);
-        std::cout << "  +----+------------------------+-------------+-----------+\n";
-        std::cout << "\n";
-        std::cout << "  +---------+-------------------------------+\n";
-        establecerColor(14);
-        std::cout << "  |  tecla  |  accion                       |\n";
-        establecerColor(8);
-        std::cout << "  +---------+-------------------------------+\n";
-        establecerColor(8);  std::cout << "  |   ";
-        establecerColor(11); std::cout << "[1]";
-        establecerColor(8);  std::cout << "   |  ";
-        establecerColor(7);  std::cout << "Crear playlist manual        ";
-        establecerColor(8);  std::cout << "|\n";
-        establecerColor(8);  std::cout << "  |   ";
-        establecerColor(11); std::cout << "[2]";
-        establecerColor(8);  std::cout << "   |  ";
-        establecerColor(7);  std::cout << "Crear playlist automatica    ";
-        establecerColor(8);  std::cout << "|\n";
-        establecerColor(8);  std::cout << "  |   ";
-        establecerColor(11); std::cout << "[3]";
-        establecerColor(8);  std::cout << "   |  ";
-        establecerColor(7);  std::cout << "Abrir playlist               ";
-        establecerColor(8);  std::cout << "|\n";
-        establecerColor(8);  std::cout << "  |   ";
-        establecerColor(11); std::cout << "[4]";
-        establecerColor(8);  std::cout << "   |  ";
-        establecerColor(7);  std::cout << "Cambiar orden                ";
-        establecerColor(8);  std::cout << "|\n";
-        std::cout << "  |                                         |\n";
-        establecerColor(8);  std::cout << "  |   ";
-        establecerColor(12); std::cout << "[Q]";
-        establecerColor(8);  std::cout << "   |  ";
-        establecerColor(12); std::cout << "Volver                       ";
-        establecerColor(8);  std::cout << "|\n";
-        std::cout << "  +---------+-------------------------------+\n";
-        establecerColor(7);
-    }
     void marcoRegistro() {
-        establecerColor(10);
+        establecerColor(11);
         std::cout << "\n  +==================================================+\n";
-        std::cout << "  |               *** REGISTRO ***                  |\n";
+        std::cout << "  |               *** REGISTRO ***                   |\n";
         std::cout << "  +==================================================+\n\n";
         establecerColor(8);
         std::cout << "  +--------------------------------------------------+\n";
@@ -336,7 +280,7 @@ public:
     }
 
     void marcoRegistroExito() {
-        establecerColor(10);
+        establecerColor(11);
         std::cout << "\n  +==================================================+\n";
         std::cout << "  |          *** CUENTA CREADA CON EXITO ***         |\n";
         std::cout << "  +==================================================+\n\n";
@@ -346,6 +290,113 @@ public:
         std::cout << "  Ahora puedes iniciar sesion con tu username y password.\n";
         std::cout << "  Presiona cualquier tecla para volver al menu...";
         establecerColor(7);
+    }
+
+    void titulo(const std::string& titulo, int anchoTotal = 43) {
+        establecerColor(14);
+        std::cout << "\n  +" << std::string(anchoTotal, '=') << "+\n";
+        std::string texto = "*** " + titulo + " ***";
+        int hueco = anchoTotal - texto.length();
+        if (hueco < 0) hueco = 0;
+        int izq = hueco / 2, der = hueco - izq; establecerColor(14);
+        std::cout << "  |" << std::string(izq, ' '); establecerColor(11); std::cout << texto; establecerColor(14); std::cout << std::string(der, ' ') << "|\n";
+        std::cout << "  +" << std::string(anchoTotal, '=') << "+\n\n";
+    }
+
+    void marcoTexto(const std::string& titulo, int anchoTotal = 43) {
+        establecerColor(14);
+        std::cout << "\n  +" << std::string(anchoTotal, '=') << "+\n";
+        std::string texto = titulo;
+        int hueco = anchoTotal - texto.length();
+        if (hueco < 0) hueco = 0;
+        int izq = hueco / 2, der = hueco - izq;
+        std::cout << "  |" << std::string(izq, ' '); establecerColor(11); std::cout << texto; establecerColor(14); std::cout << std::string(der, ' ') << "|\n";
+        std::cout << "  +" << std::string(anchoTotal, '=') << "+\n\n";
+    }
+
+    void bordeOpciones(int anchoAccion = 33) {
+        establecerColor(14);
+        std::cout << "  +---------+" << std::string(anchoAccion, '-') << "+\n";
+    }
+
+    void cabeceraOpciones(int anchoAccion = 33) {
+        bordeOpciones(anchoAccion);
+        establecerColor(14);
+        std::cout << "  |  tecla  |";
+        establecerColor(11); std::cout << "  ";
+        establecerColor(14); std::cout << std::left << std::setw(anchoAccion - 2) << "accion";
+        establecerColor(11); std::cout << "|\n";
+        bordeOpciones(anchoAccion);
+    }
+
+    void imprimirOpcion(const std::string& tecla, const std::string& accion, int colorTecla = 11, int anchoAccion = 33) {
+        std::string t = "[" + tecla + "]";
+        int hueco = 9 - t.length();
+        if (hueco < 0) hueco = 0;
+        int izq = hueco / 2, der = hueco - izq;
+        establecerColor(14);  std::cout << "  |" << std::string(izq, ' ');
+        establecerColor(colorTecla); std::cout << t;
+        establecerColor(14);  std::cout << std::string(der, ' ') << "|  ";
+        establecerColor(colorTecla == 12 ? 12 : 7);
+        std::cout << std::left << std::setw(anchoAccion - 2) << accion;
+        establecerColor(14);  std::cout << "|\n";
+    }
+
+    void menuBusqueda() {
+        titulo("REALIZAR BUSQUEDA");
+        cabeceraOpciones();
+        imprimirOpcion("1", "Buscar por Id");
+        imprimirOpcion("2", "Buscar por Nombre");
+        imprimirOpcion("3", "Buscar por Artista");
+        imprimirOpcion("4", "Buscar por Genero");
+        bordeOpciones();
+        imprimirOpcion("Q", "Salir", 12);
+        bordeOpciones();
+        establecerColor(7);
+    }
+
+    void menuHistorial() {
+        titulo("HISTORIAL");
+        cabeceraOpciones();
+        imprimirOpcion("1", "Mostrar por reproducciones");
+        imprimirOpcion("2", "Mostrar por busqueda");
+        imprimirOpcion("3", "Ajustes");
+        bordeOpciones();
+        imprimirOpcion("Q", "Salir", 12);
+        bordeOpciones();
+        establecerColor(7);
+    }
+
+    void menuAjustes(char ajusteReproducciones, char ajusteBusquedas, bool ordenAscendente) {
+        establecerColor(8);
+        std::cout << "  +-------------------------------------------------------------+\n";
+        establecerColor(14); std::cout << "  |  General        -- ";
+        establecerColor(11); std::cout << "[0]"; establecerColor(7); std::cout << " Restablecer";
+        std::cout << std::string(15, ' '); establecerColor(8); std::cout << "           |\n";
+
+        establecerColor(14); std::cout << "  |  Reproducciones -- ";
+        establecerColor(11); std::cout << "[N]"; establecerColor(7); std::cout << " Nombre  ";
+        establecerColor(11); std::cout << "[I]"; establecerColor(7); std::cout << " Id  ";
+        establecerColor(11); std::cout << "[R]"; establecerColor(7); std::cout << " Rep  ";
+        establecerColor(11); std::cout << "[X]"; establecerColor(7); std::cout << " Artista";
+        establecerColor(8); std::cout << " |\n";
+
+        establecerColor(14); std::cout << "  |  Busqueda       -- ";
+        establecerColor(11); std::cout << "[T]"; establecerColor(7); std::cout << " Tipo  ";
+        establecerColor(11); std::cout << "[B]"; establecerColor(7); std::cout << " Busqueda  ";
+        establecerColor(11); std::cout << "[E]"; establecerColor(7); std::cout << " Encontrado";
+        establecerColor(8); std::cout << "   |\n";
+
+        establecerColor(14); std::cout << "  |  Direccion      -- ";
+        establecerColor(11); std::cout << "[A]"; establecerColor(7); std::cout << " Ascendente  ";
+        establecerColor(11); std::cout << "[D]"; establecerColor(7); std::cout << " Descendiente";
+        establecerColor(8); std::cout << "         |\n";
+        std::cout << "  +-------------------------------------------------------------+\n";
+
+        establecerColor(14); std::cout << "  Ajuste actual -> ";
+        establecerColor(11); std::cout << ajusteReproducciones << "  " << ajusteBusquedas;
+        establecerColor(14); std::cout << "  --  ";
+        establecerColor(11); std::cout << (ordenAscendente ? "Ascendente" : "Descendiente");
     }
 };
 

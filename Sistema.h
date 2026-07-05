@@ -88,9 +88,9 @@ private:
         usuarios.recorrer([&](Usuario*& u) { if (u->validarCredenciales(user, pass)) { encontrado = u; }});
         if (encontrado != nullptr) {
             usuarioActual = encontrado;
-            establecerColor(14);
-            std::cout << "\n  [+] Bienvenido de vuelta, " << usuarioActual->getNombre() << "!\n";
-            std::cout << "  Presiona cualquier tecla para continuar...";
+            establecerColor(14); std::cout << "  [+] "; 
+            establecerColor(11); std::cout << "Bienvenido de vuelta, " << usuarioActual->getNombre() << "!\n"; 
+            establecerColor(14); std::cout << "  Presiona cualquier tecla para continuar.";
             establecerColor(7);
             (void)_getch();
             return true;
@@ -99,7 +99,7 @@ private:
             establecerColor(12);
             std::cout << "\n  [!] Username o password incorrectos.\n";
             establecerColor(8);
-            std::cout << "  Presiona cualquier tecla para volver...";
+            std::cout << "  Presiona cualquier tecla para volver.";
             establecerColor(7);
             (void)_getch();
             return false;
@@ -137,7 +137,7 @@ private:
             establecerColor(12);
             std::cout << "  [!] El username '" << username << "' ya esta en uso.\n";
             establecerColor(7);
-            std::cout << "  Presiona cualquier tecla para volver...";
+            std::cout << "  Presiona cualquier tecla para volver.";
             (void)_getch();
             return;
         }
@@ -163,7 +163,7 @@ private:
             std::cout << "\n  [!] Ningun genero ingresado fue valido. Registro cancelado.\n";
             establecerColor(7);
             delete nuevoUsuario;
-            std::cout << "  Presiona cualquier tecla para volver...";
+            std::cout << "  Presiona cualquier tecla para volver.";
             (void)_getch();
             return;
         }
@@ -178,17 +178,8 @@ private:
         while (opc != '6' && usuarioActual != nullptr) {
             establecerColor(10);
             system("cls");
-            //ui.marco2();
-            establecerColor(14);
-            //moverCursor(15, 11);
-            //std::cout << " " << usuarioActual->getNombre() << "!\n\n";
-            std::cout << "---SPOTIFY TB2---" << std::endl; //menu temporal
-            std::cout << "1. Ver catalogo musical" << std::endl;
-            std::cout << "2. Realizar busquedas" << std::endl;
-            std::cout << "3. Fila de reproduccion" << std::endl;
-            std::cout << "4. Historial" << std::endl;
-            std::cout << "5. Recomendacion Semanal" << std::endl;
-            std::cout << "6. Cerrar sesion" << std::endl;
+            ui.marcoPostLogin();
+            establecerColor(11); moverCursor(15, 11); std::cout << " " << usuarioActual->getNombre() << "!\n\n"; establecerColor(14);
             opc = _getch();
             switch (opc) {
             case '1': {
@@ -291,37 +282,36 @@ private:
         char tecla = ' ';
         while (tecla != 'Q' && tecla != 'q')
         {
-            establecerColor(14); system("cls");
-            std::cout << "+-------REALIZAR BUSQUEDA-------+\n";
-            std::cout << "1. Realizar busqueda por Id\n";
-            std::cout << "2. Realizar busqueda por Nombre\n";
-            std::cout << "3. Realizar busqueda por Artista\n";
-            std::cout << "4. Realizar busqueda por Genero\n"; establecerColor(12);
-            std::cout << "Q. Salir\n"; establecerColor(14);
+            system("cls");
+            ui.menuBusqueda();
             tecla = _getch();
             switch (tecla)
             {
             case '1': {
-                int id = 0; std::cout << "\ningrese el Id de la cancion que desea buscar: "; std::cin >> id; 
-                validadorNumeros(id, "Id invalido. Intente nuevamente: ");
+                system("cls");
+                int id = 0; establecerColor(14); std::cout << "\n  ingrese el Id de la cancion que desea buscar: "; establecerColor(11); std::cin >> id;
+                validadorNumeros(id, "  Id invalido. Intente nuevamente: ");
                 buscarCancionId(id);
                 (void)_getch();
                 break;
             }
             case '2': {
-                std::string nombreCancion; validadorTexto(nombreCancion, "\ningrese el nombre de la Cancion que desea buscar: "); 
+                system("cls");
+                std::string nombreCancion; validadorTexto(nombreCancion, "\n  ingrese el nombre de la Cancion que desea buscar: "); 
                 buscarCancionNombre(nombreCancion);
                 (void)_getch();
                 break;
             }
             case '3': {
-                std::string nombreArtista; validadorTexto(nombreArtista, "\ningrese el nombre del Artista que desea buscar: ");
+                system("cls");
+                std::string nombreArtista; validadorTexto(nombreArtista, "\n  ingrese el nombre del Artista que desea buscar: ");
                 buscarPorArtista(nombreArtista);
                 (void)_getch();
                 break;
             }
             case '4': {
-                std::string nombreGenero; validadorTexto(nombreGenero, "\ningrese el nombre del Genero que desea buscar: "); 
+                system("cls");
+                std::string nombreGenero; validadorTexto(nombreGenero, "\n  ingrese el nombre del Genero que desea buscar: "); 
                 buscarPorGenero(nombreGenero);
                 (void)_getch();
                 break;
@@ -333,7 +323,8 @@ private:
     }
 
     void agregarFila() {
-        establecerColor(14); int temp = 0; std::cout << "\n\n   Ingrese el Id de la cancion que desee agregar: "; std::cin >> temp; validadorNumeros(temp, "   Id invalido. Intente nuevamente: ");
+        establecerColor(14); int temp = 0; std::cout << "\n\n   Ingrese el Id de la cancion que desee agregar: "; 
+        establecerColor(11); std::cin >> temp; establecerColor(14); validadorNumeros(temp, "   Id invalido. Intente nuevamente: ");
         Cancion* aux = busquedaId.buscar(temp);
         if (aux != nullptr) { fila.enqueue(aux); establecerColor(10); std::cout << "   -- Id agregado!\n"; }
         else { establecerColor(12); std::cout << "   -- Id no encontrado.\n"; };
@@ -434,7 +425,7 @@ private:
                 int reproducidas = 1; 
                 while (tecla != 'Q' && tecla != 'q') {
                     system("cls");
-                    ui.tituloFicha("Reproduciendo desde fila", 15, 0, 7);
+                    ui.tituloFicha("Reproduciendo desde fila", 15, 0, 11);
                     establecerColor(14); std::cout << "\n\n\n";
                     std::cout << "Cancion reproducida desde la fila: " << reproducidas << "\n";
                     std::cout << "Canciones restantes en fila: " << fila.getLon() << "\n";
@@ -442,7 +433,7 @@ private:
                     if (actual != nullptr) {
                         std::string generos = ""; actual->getGenerosId().recorrer([&](int generoId) {
                             if (!generos.empty()) { generos += ", "; } generos += devolverNombreGenero(generoId); });
-                        establecerColor(7); std::cout << "Cancion: " << actual->getNombre() << "\n";
+                        establecerColor(11); std::cout << "Cancion: " << actual->getNombre() << "\n";
                         establecerColor(14); std::cout << "Artista: " << devolverNombreArtista(actual->getArtistaId()) << "\n";
                         std::cout << "Genero: " << generos << "\n";
                         std::cout << "Reproducciones: " << actual->getReproducciones() << "\n";
@@ -516,16 +507,12 @@ private:
         while (opc != 'Q' && opc != 'q') {
             establecerColor(14);
             system("cls");
-            std::cout << "---HISTORIALES---" << std::endl; 
-            std::cout << "1. Mostrar por reproducciones" << std::endl;
-            std::cout << "2. Mostrar por busqueda" << std::endl;
-            std::cout << "3. Ajustes" << std::endl; establecerColor(12);
-            std::cout << "Q. Salir" << std::endl; establecerColor(14);
+            ui.menuHistorial();
             opc = _getch();
             switch (opc) {
             case '1': {
                 if (historialCancion.size() <= 0) { 
-                    establecerColor(12); std::cout << "No se ha reproducido nada esta sesion.\n";
+                    establecerColor(12); std::cout << "\n  No se ha reproducido nada esta sesion.\n";
                     (void)_getch(); break;
                 }
                 system("cls");
@@ -538,7 +525,7 @@ private:
                 rellenarVectorRecursivo(historialCancion.size() - 1, n, historialCancion, vistaReproducciones);
                 if (ajusteReproducciones == '0') { for (int i = historialCancion.size() - 1; i > paginado; i--) { historialCancion[i]->imprimirInfo(devolverNombreArtista(historialCancion[i]->getArtistaId())); std::cout << std::endl;; } 
                 establecerColor(1); std::cout << std::string(56, '-') << std::endl;
-                establecerColor(12); std::cout << "   Presione cualquier tecla para salir.." << std::endl; }
+                establecerColor(12); std::cout << "   Presione cualquier tecla para salir." << std::endl; }
                 else {
                     std::function<bool(Cancion* a, Cancion* b)> comparar;
                     switch (ajusteReproducciones)
@@ -552,7 +539,7 @@ private:
                         break;
                     }
                     case 'R': {
-                        comparar = [&](Cancion* a, Cancion* b) { if (ordenAscendente) { return a->getReproducciones() < b->getReproducciones(); } else return a->getReproducciones() > b->getReproducciones(); };
+                        comparar = [&](Cancion* a, Cancion* b) { if (ordenAscendente) { return a->getReproducciones() > b->getReproducciones(); } else return a->getReproducciones() < b->getReproducciones(); };
                         break;
                     }
                     case 'X': {
@@ -565,14 +552,14 @@ private:
                     heapSort(vistaReproducciones, comparar);
                     for (int i = 0; i < n; i++) { vistaReproducciones[i]->imprimirInfo(devolverNombreArtista(vistaReproducciones[i]->getArtistaId())); std::cout << std::endl; }
                     establecerColor(1); std::cout << std::string(56, '-') << std::endl;
-                    establecerColor(12); std::cout << "   Presione cualquier tecla para salir.." << std::endl;
+                    establecerColor(12); std::cout << "   Presione cualquier tecla para salir." << std::endl;
                 }
                 (void)_getch();
                 break;
             }
             case '2': {
                 if (historialBusqueda.size() <= 0) {
-                    establecerColor(12); std::cout << "No se ha realizado ninguna busqueda esta sesion.\n";
+                    establecerColor(12); std::cout << "\n  No se ha realizado ninguna busqueda esta sesion.\n";
                     (void)_getch(); break;
                 }
                 system("cls");
@@ -585,7 +572,7 @@ private:
                 rellenarVectorRecursivo(historialBusqueda.size() - 1, n, historialBusqueda, vistaBusqueda);
                 if (ajusteBusquedas == '0') { for (int i = historialBusqueda.size() - 1; i > paginado; i--) { historialBusqueda[i].imprimirInfo(); } 
                 establecerColor(1); std::cout << std::string(55, '-') << std::endl;
-                establecerColor(12); std::cout << "   Presione cualquier tecla para salir.." << std::endl;
+                establecerColor(12); std::cout << "   Presione cualquier tecla para salir." << std::endl;
                 }
                 else {
                     std::function<bool(Busqueda a, Busqueda b)> comparar;
@@ -609,21 +596,14 @@ private:
                     quickSort(vistaBusqueda, 0, n - 1, comparar);
                     for (int i = 0; i < n; i++) { vistaBusqueda[i].imprimirInfo(); }
                     establecerColor(1); std::cout << std::string(55, '-') << std::endl;
-                    establecerColor(12); std::cout << "   Presione cualquier tecla para salir.." << std::endl;
+                    establecerColor(12); std::cout << "   Presione cualquier tecla para salir." << std::endl;
                 }
                 (void)_getch();
                 break;
             }
             case '3': {
                 establecerColor(14);
-                std::cout << "\n +-------CONFIGURACION-------+";
-                std::cout << "\n General        -- "; establecerColor(12); std::cout << "[0] Restablecer"; establecerColor(14);
-                std::cout << "\n Reproducciones -- "; establecerColor(7); std::cout << "[N] Nombre" << "   [I] Id" << "   [R] Reproducciones" << "   [X] Artista"; establecerColor(14);
-                std::cout << "\n Busqueda       -- "; establecerColor(7); std::cout << "[T] Tipo" << "   [B] Busqueda" << "   [E] Encontrado"; establecerColor(14);
-                std::cout << "\n Direccion      -- "; establecerColor(7); std::cout << "[A] Ascendente"; std::cout << "   [D] Descendiente"; establecerColor(14);
-                std::cout << "\n Ajuste Actual  -- "; establecerColor(10); std::cout << ajusteReproducciones << " & " << ajusteBusquedas; establecerColor(14); std::cout << " -- "; establecerColor(10);
-                if (ordenAscendente) { std::cout << "Ascendente"; }
-                else { std::cout << "Descendiente"; }
+                ui.menuAjustes(ajusteReproducciones, ajusteBusquedas, ordenAscendente);
                 establecerColor(14);
                 ajuste = _getch(); ajuste = std::toupper(ajuste);
                 switch (ajuste)
@@ -682,9 +662,10 @@ private:
     }
 
     void recomendacionSemanal(std::vector<Cancion*> recomendaciones) {
-       char opc = ' ';
+       char opc = ' '; std::function<bool(Cancion* a, Cancion* b)> comparar = [&](Cancion* a, Cancion* b) { return a->getNombre() < b->getNombre(); };
+       mergeSort(recomendaciones, 0, recomendaciones.size() - 1, comparar);
        while (opc != 'Q' && opc != 'q') {
-            establecerColor(14);
+            establecerColor(7);
             system("cls");
             std::cout << "+               RECOMENDACION SEMANAL                  +\n";
             establecerColor(1); std::cout << std::string(56, '-') << std::endl;
@@ -714,8 +695,8 @@ private:
 
     void explorarRelacionadas() {
         system("cls"); char opc = ' ';
-        int id = 0; establecerColor(14); std::cout << "Ingrese el Id de una cancion: "; std::cin >> id;
-        validadorNumeros(id, "Id invalido. Intente nuevamente: "); establecerColor(7);
+        int id = 0; establecerColor(14); std::cout << "\n  Ingrese el Id de una cancion: "; establecerColor(11); std::cin >> id;
+        validadorNumeros(id, "  Id invalido. Intente nuevamente: "); 
         std::vector<Cancion*> relacionadasTotal; 
         Cancion* base = busquedaId.buscar(id);
         grafoCanciones.recorrerAmplitud(id, 1, [&](int id) { Cancion* c = busquedaId.buscar(id); if (c != nullptr) { relacionadasTotal.push_back(c); }});
@@ -726,7 +707,7 @@ private:
         while (opc != 'Q' && opc != 'q') {
             establecerColor(14);
             system("cls");
-            establecerColor(14); std::cout << "Canciones relacionadas con "; establecerColor(7); std::cout << base->getNombre(); establecerColor(14); std::cout << ":\n\n";
+            establecerColor(14); std::cout << "Canciones relacionadas con "; establecerColor(11); std::cout << base->getNombre(); establecerColor(14); std::cout << ":\n\n";
             std::cout << std::left << std::setw(5) << "Id" << std::setw(30) << "NOMBRE" << std::setw(18) << "ARTISTA" << std::setw(8) << "REP" << "GENEROS" << std::endl;
             std::cout << std::string(80, '-') << std::endl; establecerColor(1);
             for (int i = 0; i < n; i++) { vistaRelacionadas[i]->imprimirInfo(devolverNombreArtista(vistaRelacionadas[i]->getArtistaId())); 
@@ -763,7 +744,7 @@ private:
             establecerColor(7);  std::cout << std::setw(27) << g->getNombre();
             establecerColor(8);  std::cout << "|\n";
             });
-        establecerColor(10);
+        establecerColor(11);
         std::cout << "  +-----------------------------------+\n";
         establecerColor(7);
     }
@@ -812,17 +793,20 @@ private:
 
     void validadorNumeros(int& n, std::string texto) {
         while (std::cin.fail() || n <= 0 || std::cin.peek() != '\n') {
-            std::cin.clear(); std::cin.ignore(1000, '\n'); std::cout << texto; std::cin >> n;
+            establecerColor(14);
+            std::cin.clear(); std::cin.ignore(1000, '\n'); std::cout << texto; establecerColor(11); std::cin >> n;
         } std::cin.ignore(); 
+        establecerColor(14);
     }
 
     void validadorTexto(std::string& texto, std::string imprimir) {
         do
         {
-            std::cout << imprimir;
-            std::getline(std::cin, texto);
+            establecerColor(14); std::cout << imprimir;
+            establecerColor(11); std::getline(std::cin, texto);
             while (!texto.empty() && texto.back() == ' ') { texto.pop_back(); }
         } while (texto.empty());
+        establecerColor(14);
     }
 
     void registrarReproduccion(Cancion* c) {
